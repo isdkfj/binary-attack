@@ -16,7 +16,7 @@ class Net(nn.Module):
         self.final = nn.Linear(hidden[-1], c)
         self.inter = nn.Identity()
 
-    def forward(self, x)
+    def forward(self, x):
         x1 = self.input1(x[:, :self.d1])
         x1 = x1 + defense(x1, x, self.input1.weight.detach())
         x1 = self.inter(x1)
