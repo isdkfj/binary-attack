@@ -15,7 +15,7 @@ class Gaussian:
         print('')
 
 class Defense:
-    def __init__(self, d1)
+    def __init__(self, d1):
         self.d1 = d1
 
     def defense(self, x1, x, W):
