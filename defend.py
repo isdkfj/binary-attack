@@ -7,8 +7,7 @@ class Gaussian:
     def defense(self, x1, *args):
         return torch.randn(x1.size()) * self.eps
 
-    @staticmethod
-    def print_info(train_acc, test_acc, attack_acc):
+    def print_info(self, train_acc, test_acc, attack_acc):
         print('gaussian noise with eps = ', self.eps)
         print('train_acc = ', train_acc)
         print('test_acc = ', test_acc)
