@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+import numpy as np
 from utils import accuracy
 
 def eval(net, data):
