@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import numpy as np
 from utils import accuracy
+from attack import leverage_score_solve
 
 def eval(net, data):
     train_dataset, train_loader, test_dataset, test_loader = data
