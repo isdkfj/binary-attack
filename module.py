@@ -15,6 +15,7 @@ class Net(nn.Module):
             self.hidden_layer.append(nn.Linear(hidden[i], hidden[i + 1]))
         self.final = nn.Linear(hidden[-1], c)
         self.inter = nn.Identity()
+        self.defense = defense
 
     def forward(self, x):
         x1 = self.input1(x[:, :self.d1])
