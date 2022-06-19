@@ -18,7 +18,7 @@ class Net(nn.Module):
 
     def forward(self, x):
         x1 = self.input1(x[:, :self.d1])
-        x1 = x1 + defense(x1, x, self.input1.weight.detach())
+        x1 = x1 + self.defense(x1, x, self.input1.weight.detach())
         x1 = self.inter(x1)
         x2 = self.input2(x[:, self.d1: self.d1 + self.d2])
         x = x1 + x2
