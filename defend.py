@@ -5,7 +5,7 @@ class Gaussian:
         self.eps = eps
 
     def defense(self, x1, *args):
-        return torch.randn(x1.size()) * eps
+        return torch.randn(x1.size()) * self.eps
 
     def print_info(train_acc, test_acc, attack_acc):
         print('gaussian noise with eps = ', self.eps)
@@ -35,3 +35,10 @@ class Defense:
         r = r @ sol[:self.d1].reshape(1, -1)
         r = r[:, :self.d1] @ Q
         return r
+
+    def print_info(train_acc, test_acc, attack_acc):
+        print('our method')
+        print('train_acc = ', train_acc)
+        print('test_acc = ', test_acc)
+        print('attack_acc = ', attack_acc)
+        print('')
