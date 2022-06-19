@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 
 def load_data(dname, path):
     if dname == 'bank':
-        path = os.join(path, 'bank-additional-full.csv')
+        path = os.path.join(path, 'bank-additional-full.csv')
         df = pd.read_csv(path, delimiter=';')
         df.head()
         for attr in df.columns:
