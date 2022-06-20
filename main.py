@@ -18,7 +18,7 @@ def run_exp(D1, num_exp, mask):
     sum_attack_acc = 0
     for iter_exp in range(num_exp):
         net = Net(D1, train_X.shape[1] - D1 - 1, 2, args.net, mask.defense)
-        train(net, (train_dataset, train_loader, test_dataset, test_loader), verbose=True)
+        train(net, (train_dataset, train_loader, test_dataset, test_loader))
         train_acc, test_acc, attack_acc, idx = eval(net, (train_dataset, train_loader, test_dataset, test_loader))
         sum_train_acc += train_acc
         sum_test_acc += test_acc
