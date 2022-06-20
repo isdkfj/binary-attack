@@ -9,7 +9,7 @@ args = get_args()
 set_random_seed(args.seed)
 
 # last column of X is fabricated label
-train_X, test_X, train_Y, test_Y = load_data(args.data, args.path)
+train_X, test_X, train_Y, test_Y = load_data(args.data, args.path, args.seed)
 train_dataset, train_loader, test_dataset, test_loader = prepare_dataset(train_X, train_Y, test_X, test_Y, args.bs)
 
 def run_exp(D1, num_exp, mask):
