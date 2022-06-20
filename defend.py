@@ -22,16 +22,16 @@ class Defense:
         invW = torch.linalg.inv(W[:self.d1, :].T)
         Q = torch.linalg.solve(W[:self.d1, :].T, W.T)
         r = torch.zeros(x1.size())
-        w = torch.mean(invW, axis=1).reshape(-1, 1)
+        w = torch.mean(invW, axis=1)
         # construct quadratic programming
         mat = torch.zeros((self.d1 + 1, self.d1 + 1))
         mat[:self.d1, :self.d1] = 2 * Q @ Q.T
         mat[:self.d1, -1] = w
-        mat[-1, :self.d1] = w.T
+        mat[-1, :self.d1] = w
         vec = torch.zeros(self.d1 + 1)
         vec[-1] = 1
         sol = torch.linalg.solve(mat, vec)
-        r = x[:, -1].reshape(-1, 1) - x1[:, :self.d1] @ w
+        r = x[:, -1].reshape(-1, 1) - x1[:, :self.d1] @ w.reshape(-1, 1)
         r = r @ sol[:self.d1].reshape(1, -1)
         r = r[:, :self.d1] @ Q
         return r
