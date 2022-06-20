@@ -23,7 +23,8 @@ class Net(nn.Module):
         x1 = self.input1(x[:, :self.d1])
         r = self.defense(x1, x, self.input1.weight.detach())
         ratio = float(torch.sum(x1 ** 2).detach().numpy()) / float(torch.sum(r ** 2).detach().numpy())
-        print(ratio)
+        if ratio > 10:
+            print(ratio)
         x1 = x1 + r
         #x1 = x1 + self.defense(x1, x, self.input1.weight.detach())
         x1 = self.inter(x1)
