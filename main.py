@@ -34,7 +34,7 @@ if args.data == 'nursery':
     dimensions = [6]
 for d1 in dimensions:
     '''gauss = Gaussian(0.0)
-    run_exp(d1, 10, gauss)
+    run_exp(d1, 10, gauss)'''
     gauss = Gaussian(0.01)
     run_exp(d1, 10, gauss)
     gauss = Gaussian(0.05)
@@ -42,7 +42,7 @@ for d1 in dimensions:
     gauss = Gaussian(0.1)
     run_exp(d1, 10, gauss)
     gauss = Gaussian(0.5)
-    run_exp(d1, 10, gauss)'''
+    run_exp(d1, 10, gauss)
     fab = Defense(d1)
     run_exp(d1, 10, fab)
         
