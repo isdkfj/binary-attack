@@ -5,9 +5,8 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 
 def load_data(dname, path, SEED):
-    print(path)
     if dname == 'bank':
-        path = os.path.join(path, '/bank-marketing/bank-additional-full.csv')
+        path = os.path.join(path, 'bank-marketing/bank-additional-full.csv')
         df = pd.read_csv(path, delimiter=';')
         for attr in df.columns:
             if df[attr].dtype == 'object':
@@ -28,7 +27,7 @@ def load_data(dname, path, SEED):
         X = np.concatenate([X, fake_label], axis=1)
         train_X, test_X, train_Y, test_Y = train_test_split(X, Y, test_size=0.1, random_state=SEED)
     elif dname == 'credit':
-        path = os.path.join(path, '/default-of-credit-card-clients-dataset/UCI_Credit_Card.csv')
+        path = os.path.join(path, 'default-of-credit-card-clients-dataset/UCI_Credit_Card.csv')
         df = pd.read_csv(path, delimiter=',')
         for attr in df.columns:
             if df[attr].dtype == 'object':
@@ -52,7 +51,7 @@ def load_data(dname, path, SEED):
     elif dname == 'news':
         pass
     elif dname == 'mushroom':
-        path = os.path.join(path, '/mushroom-classification/mushrooms.csv')
+        path = os.path.join(path, 'mushroom-classification/mushrooms.csv')
         print(path)
         df = pd.read_csv(path)
         df = df.drop(columns=['veil-type'])
@@ -68,7 +67,7 @@ def load_data(dname, path, SEED):
         X = np.concatenate([X, fake_label], axis=1)
         train_X, test_X, train_Y, test_Y = train_test_split(X, Y, test_size=0.1, random_state=SEED)
     elif dname == 'nursery':
-        path = os.path.join(path, '/nursery/nursery.csv')
+        path = os.path.join(path, 'nursery/nursery.csv')
         df = pd.read_csv(path)
         for attr in df.columns:
             if df[attr].dtype == 'object':
