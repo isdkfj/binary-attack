@@ -52,7 +52,6 @@ def load_data(dname, path, SEED):
         pass
     elif dname == 'mushroom':
         path = os.path.join(path, 'mushroom-classification/mushrooms.csv')
-        print(path)
         df = pd.read_csv(path)
         df = df.drop(columns=['veil-type'])
         for attr in df.columns:
