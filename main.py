@@ -27,7 +27,7 @@ def run_exp(D1, num_exp, mask):
     mask.print_info(sum_train_acc / num_exp, sum_test_acc / num_exp, sum_attack_acc / num_exp)
 
 for D1 in [8]:
-    '''gauss = Gaussian(0.0)
+    gauss = Gaussian(0.0)
     run_exp(D1, 10, gauss)
     gauss = Gaussian(0.01)
     run_exp(D1, 10, gauss)
@@ -36,7 +36,7 @@ for D1 in [8]:
     gauss = Gaussian(0.1)
     run_exp(D1, 10, gauss)
     gauss = Gaussian(0.5)
-    run_exp(D1, 10, gauss)'''
+    run_exp(D1, 10, gauss)
     fab = Defense(D1)
     run_exp(D1, 10, fab)
         
