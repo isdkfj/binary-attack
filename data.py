@@ -28,6 +28,7 @@ def load_data(dname, path, SEED):
         train_X, test_X, train_Y, test_Y = train_test_split(X, Y, test_size=0.1, random_state=SEED)
     elif dname == 'credit':
         path = os.path.join(path, 'UCI_Credit_Card.csv')
+        df = pd.read_csv(path, delimiter=',')
         for attr in df.columns:
             if df[attr].dtype == 'object':
                 encoder= LabelEncoder().fit(df[attr])
