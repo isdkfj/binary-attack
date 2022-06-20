@@ -14,7 +14,7 @@ def get_args():
     # neural network hyper-parameters
     parser.add_argument('--net', nargs='*', help='number of neurons in each hidden layer', default=[600, 300, 100])
     parser.add_argument('--bs', type=int, help='batch size', default=128)
-    parser.add_argument('--seed', type=int, help='random seed', default=1)
+    parser.add_argument('--seed', type=int, help='random seed', default=0)
     args = parser.parse_args()
 
     try:
