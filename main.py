@@ -29,7 +29,10 @@ def run_exp(D1, num_exp, mask):
         sum_attack_acc += attack_acc
     mask.print_info(sum_train_acc / num_exp, sum_test_acc / num_exp, sum_attack_acc / num_exp)
 
-for D1 in [8]:
+dimensions = [8]
+if args.data == 'nursery':
+    dimensions = [6]
+for D1 in dimensions:
     gauss = Gaussian(0.0)
     run_exp(D1, 10, gauss)
     gauss = Gaussian(0.01)
