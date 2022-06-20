@@ -65,4 +65,18 @@ def load_data(dname, path, SEED):
         fake_label = np.random.randint(0, 2, (X.shape[0], 1))
         X = np.concatenate([X, fake_label], axis=1)
         train_X, test_X, train_Y, test_Y = train_test_split(X, Y, test_size=0.1, random_state=SEED)
+    elif dname == 'nursery':
+        path = os.path.join(path, '/nursery/nursery.csv')
+        df = pd.read_csv(path)
+        for attr in df.columns:
+            if df[attr].dtype == 'object':
+                encoder= LabelEncoder().fit(df[attr])
+                df[attr] = encoder.transform(df[attr])
+        X = df.values[:, :-1].astype('float')
+        X -= np.min(X, axis=0)
+        X /= np.max(X, axis=0)
+        Y = df.values[:, -1].astype('int')
+        fake_label = np.random.randint(0, 2, (X.shape[0], 1))
+        X = np.concatenate([X, fake_label], axis=1)
+        train_X, test_X, train_Y, test_Y = train_test_split(X, Y, test_size=0.1, random_state=SEED)
     return train_X, test_X, train_Y, test_Y
