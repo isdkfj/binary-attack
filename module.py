@@ -10,9 +10,11 @@ class Net(nn.Module):
         self.d2 = d2
         self.input1 = nn.Linear(d1, hidden[0], bias=False)
         self.input2 = nn.Linear(d2, hidden[0], bias=True)
-        self.hidden_layer = []
+        hidden_layers = []
         for i in range(len(hidden) - 1):
-            self.hidden_layer.append(nn.Linear(hidden[i], hidden[i + 1]))
+            hidden_layers.append(nn.Linear(hidden[i], hidden[i + 1]))
+            hidden_layers.append(nn.ReLU())
+        self.hidden = nn.Sequential(*hidden_layers)
         self.final = nn.Linear(hidden[-1], c)
         self.inter = nn.Identity()
         self.defense = defense
@@ -24,7 +26,6 @@ class Net(nn.Module):
         x2 = self.input2(x[:, self.d1: self.d1 + self.d2])
         x = x1 + x2
         x = F.relu(x)
-        for layer in self.hidden_layer:
-            x = F.relu(layer(x))
+        x = self.hidden(x)
         x = self.final(x)
         return x
