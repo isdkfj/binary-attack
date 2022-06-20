@@ -34,7 +34,7 @@ class Defense:
         r = x[:, -1].reshape(-1, 1) - x1[:, :self.d1] @ w.reshape(-1, 1)
         r = r @ sol[:self.d1].reshape(1, -1)
         r = r[:, :self.d1] @ Q
-        return r
+        return r.detach()
 
     @staticmethod
     def print_info(train_acc, test_acc, attack_acc):
