@@ -23,7 +23,6 @@ class Defense:
         Q = torch.linalg.solve(W[:self.d1, :].T, W.T)
         r = torch.zeros(x1.size())
         w = torch.mean(invW, axis=1)
-        w = invW[:, 5]
         # construct quadratic programming
         mat = torch.zeros((self.d1 + 1, self.d1 + 1))
         mat[:self.d1, :self.d1] = 2 * Q @ Q.T
@@ -35,6 +34,7 @@ class Defense:
         r = x[:, -1].reshape(-1, 1) - x1[:, :self.d1] @ w.reshape(-1, 1)
         r = r @ sol[:self.d1].reshape(1, -1)
         r = r[:, :self.d1] @ Q
+        r *= torch.max(torch.sum(x1 ** 2) / torch.sum(r ** 2), 1)
         return r.detach()
 
     @staticmethod
