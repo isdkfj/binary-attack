@@ -15,7 +15,6 @@ def process_binary(X):
                 X[:, i] = 1 - X[:, i]
                 s0, s1 = s1, s0
             print('feature no.{} is binary, {}% are 0\'s'.format(i, s0 / X.shape[0] * 100))
-            print(np.sum(np.isclose(X[:, i], 0)) / X.shape[0])
 
 def load_data(dname, path, SEED):
     if dname == 'bank':
