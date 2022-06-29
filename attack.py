@@ -23,7 +23,7 @@ def leverage_score_sampling(A, k):
 def global_minl2(A, x):
     b = np.dot(A, x)
     b = (b > 0.5).astype(float)
-    b = b[:, np.sum(b, axis=0) > 0.25 * A.shape[0]]
+    b = b[:, np.sum(b, axis=0) > 0]
     if b.size == 0:
         return None, 1e30
     x = np.linalg.solve(np.dot(A.T, A), np.dot(A.T, b))
