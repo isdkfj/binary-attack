@@ -31,27 +31,16 @@ def global_minl2(A, x):
         y = np.linalg.solve(cov, np.dot(A.T, b))
         b = np.dot(A, y)
         l2 = np.sum(np.minimum(b ** 2, (b - 1.) ** 2))
-        if val == None or l2 < val:
+        if val is None or l2 < val:
             sol, val = y, l2
     return sol, val
-    b = np.dot(A, x)
-    b = (b > 0.5).astype(float)
-    b = b[:, np.sum(b, axis=0) > 0]
-    if b.size == 0:
-        return None, 1e30
-    x = np.linalg.solve(np.dot(A.T, A), np.dot(A.T, b))
-    b = np.dot(A, x)
-    l2 = np.sum(np.minimum(b ** 2, (b - 1.) ** 2), axis=0)
-    pos = np.argmin(l2)
-    return x[:, pos], l2[pos]
-    
+
 def leverage_score_solve(A, it, k):
     sol, val = global_minl2(A, np.ones((A.shape[1], 1)))
     # run several iterations
     for i in range(it):
-        print(i)
         x = leverage_score_sampling(A, k)
         p, v = global_minl2(A, x)
-        if p is None or v < val:
+        if val is None or (v is not None and v < val):
             sol, val = p, v
     return sol, val
