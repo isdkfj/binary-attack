@@ -35,7 +35,7 @@ dimensions = [8]
 if args.data == 'nursery':
     dimensions = [6]
 elif args.data == 'covertype':
-    dimensions = [10]
+    dimensions = [11]
 for d1 in dimensions:
     gauss = Gaussian(0.0)
     run_exp(d1, 1, gauss)
