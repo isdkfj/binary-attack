@@ -17,7 +17,9 @@ def leverage_score_sampling(A, k):
     S = A[row, :] / np.sqrt(k * p[row, :])
     enum = create_enum(k)[:, 1:] # delete all 0
     r = enum / np.sqrt(k * p[row, :])
+    print(S.shape, r.shape)
     sol = np.linalg.solve(np.dot(S.T, S), np.dot(S.T, r))
+    print(sol.shape)
     return sol
 
 def global_minl2(A, x):
