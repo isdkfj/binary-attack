@@ -23,13 +23,15 @@ def leverage_score_sampling(A, k):
 
 @jit(nopython=True)
 def global_minl2(A, x):
+    A = A.astype(np.float32)
     cov = np.dot(A.T, A)
     sol, val = None, None
     for i in range(x.shape[1]):
         b = np.dot(A, x[:, i])
-        b = (b > 0.5).astype(np.float32)
-        if np.sum(b) < 1:
+        b = (b > 0.5)
+        if np.any(b) == False:
             continue
+        b = b.astype(np.float32)
         y = np.linalg.solve(cov, np.dot(A.T, b))
         b = np.dot(A, y)
         l2 = np.sum(np.minimum(b ** 2, (b - 1.) ** 2))
@@ -38,7 +40,6 @@ def global_minl2(A, x):
     return sol, val
 
 def leverage_score_solve(A, it, k):
-    A = A.astype(float)
     sol, val = global_minl2(A, np.ones((A.shape[1], 1)))
     # run several iterations
     for i in range(it):
