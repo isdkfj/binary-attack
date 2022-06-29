@@ -27,7 +27,7 @@ def global_minl2(A, x):
     sol, val = None, None
     for i in range(x.shape[1]):
         b = np.dot(A, x[:, i])
-        b = (b > 0.5).astype(float)
+        b = (b > 0.5).astype(np.float)
         if np.isclose(np.sum(b), 0):
             continue
         y = np.linalg.solve(cov, np.dot(A.T, b))
