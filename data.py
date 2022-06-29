@@ -45,8 +45,6 @@ def load_data(dname, path, SEED):
         fake_label = np.random.randint(0, 2, (X.shape[0], 1))
         X = np.concatenate([X, fake_label], axis=1)
         train_X, test_X, train_Y, test_Y = train_test_split(X, Y, test_size=0.1, random_state=SEED)
-    elif dname == 'news':
-        pass
     elif dname == 'mushroom':
         path = os.path.join(path, 'mushroom-classification/mushrooms.csv')
         df = pd.read_csv(path)
@@ -70,6 +68,19 @@ def load_data(dname, path, SEED):
                 df[attr] = encoder.transform(df[attr])
         X = df.values[:, :-1].astype('float')
         Y = df.values[:, -1].astype('int')
+        process_binary(X)
+        fake_label = np.random.randint(0, 2, (X.shape[0], 1))
+        X = np.concatenate([X, fake_label], axis=1)
+        train_X, test_X, train_Y, test_Y = train_test_split(X, Y, test_size=0.1, random_state=SEED)
+    elif dname == 'covertype':
+        path = os.path.join(path, 'forest-cover-type-dataset/covtype.csv')
+        df = pd.read_csv(path)
+        for attr in df.columns:
+            if df[attr].dtype == 'object':
+                encoder= LabelEncoder().fit(df[attr])
+                df[attr] = encoder.transform(df[attr])
+        X = df.values[:, :-1].astype('float')
+        Y = df.values[:, -1].astype('int') - 1
         process_binary(X)
         fake_label = np.random.randint(0, 2, (X.shape[0], 1))
         X = np.concatenate([X, fake_label], axis=1)
