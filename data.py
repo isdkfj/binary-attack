@@ -9,6 +9,7 @@ def process_binary(X):
     for i in range(X.shape[1]):
         s0 = np.sum(np.isclose(X[:, i], 0))
         s1 = np.sum(np.isclose(X[:, i], 1))
+        print(s0, s1)
         if s0 + s1 == X.shape[0]:
             if s0 < s1:
                 # swap 0 and 1 if there are more 1's
