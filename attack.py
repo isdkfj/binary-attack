@@ -24,6 +24,7 @@ def leverage_score_sampling(A, k):
 @jit(nopython=True)
 def global_minl2(A, x):
     A = A.astype(np.float32)
+    x = x.astype(np.float32)
     cov = np.dot(A.T, A)
     sol, val = None, None
     for i in range(x.shape[1]):
