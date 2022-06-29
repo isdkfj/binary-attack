@@ -32,7 +32,9 @@ def run_exp(d1, num_exp, mask):
     mask.print_info(sum_train_acc / num_exp, sum_test_acc / num_exp, sum_attack_acc / num_exp)
 
 dimensions = [8]
-if args.data == 'nursery':
+if args.data == 'mushroom':
+    dimensions = [15]
+elif args.data == 'nursery':
     dimensions = [6]
 elif args.data == 'covertype':
     dimensions = [11]
