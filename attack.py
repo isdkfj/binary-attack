@@ -24,7 +24,6 @@ def global_minl2(A, x):
     cov = np.dot(A.T, A)
     sol, val = None, None
     for i in range(x.shape[1]):
-        print(i)
         b = np.dot(A, x[:, i])
         b = (b > 0.5).astype(float)
         if np.isclose(np.sum(b), 0):
@@ -50,6 +49,7 @@ def leverage_score_solve(A, it, k):
     sol, val = global_minl2(A, np.ones((A.shape[1], 1)))
     # run several iterations
     for i in range(it):
+        print(i)
         x = leverage_score_sampling(A, k)
         p, v = global_minl2(A, x)
         if p is None or v < val:
