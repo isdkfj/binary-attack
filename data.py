@@ -9,7 +9,6 @@ def process_binary(X):
     for i in range(X.shape[1]):
         s0 = np.sum(np.isclose(X[:, i], 0))
         s1 = np.sum(np.isclose(X[:, i], 1))
-        print(s0, s1)
         if s0 + s1 == X.shape[0]:
             if s0 < s1:
                 # swap 0 and 1 if there are more 1's
@@ -34,13 +33,14 @@ def load_data(dname, path, SEED):
     elif dname == 'credit':
         path = os.path.join(path, 'default-of-credit-card-clients-dataset/UCI_Credit_Card.csv')
         df = pd.read_csv(path, delimiter=',')
+        df = df.drop(columns=['ID'])
         for attr in df.columns:
             if df[attr].dtype == 'object':
                 encoder= LabelEncoder().fit(df[attr])
                 df[attr] = encoder.transform(df[attr])
-        df = df.drop(columns=['ID'])
         X = df.values[:, :-1]
         Y = df.values[:, -1].astype('int')
+        X[:, 1] -= 1
         process_binary(X)
         fake_label = np.random.randint(0, 2, (X.shape[0], 1))
         X = np.concatenate([X, fake_label], axis=1)
