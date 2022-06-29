@@ -15,6 +15,8 @@ train_dataset, train_loader, test_dataset, test_loader = prepare_dataset(train_X
 num_classes = 2
 if args.data == 'nursery':
     num_classes = 5
+elif args.data == 'covertype':
+    num_classes = 7
 
 def run_exp(d1, num_exp, mask):
     sum_train_acc = 0
