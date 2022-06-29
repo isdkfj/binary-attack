@@ -1,4 +1,5 @@
 import numpy as np
+from numba import jit
 
 def create_enum(d):
     pw = 2 ** d
@@ -20,6 +21,7 @@ def leverage_score_sampling(A, k):
     sol = np.linalg.solve(np.dot(S.T, S), np.dot(S.T, r))
     return sol
 
+@jit(nopython=True)
 def global_minl2(A, x):
     cov = np.dot(A.T, A)
     sol, val = None, None
