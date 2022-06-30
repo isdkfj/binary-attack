@@ -1,13 +1,14 @@
 import numpy as np
 from numba import jit
 
+# create a enumeration matrix
 def create_enum(d):
     pw = 2 ** d
     a = np.array(range(pw))
     res = np.zeros((d, pw))
     for i in range(d):
         res[i, ((a >> i) & 1) == 1] = 1
-    return res
+    return res[:, 1:]
 
 def leverage_score_sampling(A, k):
     u, s, v = np.linalg.svd(A, full_matrices=False)
@@ -16,7 +17,7 @@ def leverage_score_sampling(A, k):
     row = np.random.choice(A.shape[0], k, replace=True, p=p)
     p = p.reshape(A.shape[0], 1)
     S = A[row, :] / np.sqrt(k * p[row, :])
-    enum = create_enum(k)[:, 1:] # delete all 0
+    enum = create_enum(k)
     r = enum / np.sqrt(k * p[row, :])
     sol = np.linalg.solve(np.dot(S.T, S), np.dot(S.T, r))
     return sol
