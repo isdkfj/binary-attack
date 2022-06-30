@@ -12,31 +12,35 @@ set_random_seed(args.seed)
 train_X, test_X, train_Y, test_Y = load_data(args.data, args.path, args.seed)
 train_dataset, train_loader, test_dataset, test_loader = prepare_dataset(train_X, train_Y, test_X, test_Y, args.bs)
 
-num_classes = 2
-if args.data == 'nursery':
+if args.data == 'bank':
+    num_classes = 2
+    dimensions = [8]
+    hid = [60, 30, 10]
+elif args.data =='credit':
+    num_classes = 2
+    dimensions = [10]
+    hid = [50, 20, 10]
+elif args.data == 'mushroom':
+    num_classes = 2
+    dimensions = [15]
+    hid = [50, 20]
+elif args.data == 'nursery':
     num_classes = 5
+    dimensions = [6]
+    hid = [20, 10]
 elif args.data == 'covertype':
     num_classes = 7
+    dimensions = [11]
+    hid = [150, 50, 10]
 
 def run_exp(d1, num_exp, mask):
     sum_train_acc = 0
     sum_test_acc = 0
     sum_attack_acc = 0
     for iter_exp in range(num_exp):
-        net = Net(d1, train_X.shape[1] - d1 - 1, num_classes, args.net, mask.defense)
+        net = Net(d1, train_X.shape[1] - d1 - 1, num_classes, hid, mask.defense)
         train(net, (train_dataset, train_loader), verbose=False)
         eval(net, (train_dataset, train_loader, test_dataset, test_loader))
-
-if args.data == 'bank':
-    dimensions = [8]
-elif args.data =='credit':
-    dimensions = [10]
-elif args.data == 'mushroom':
-    dimensions = [15]
-elif args.data == 'nursery':
-    dimensions = [6]
-elif args.data == 'covertype':
-    dimensions = [11]
 
 for d1 in dimensions:
     gauss = Gaussian(0.0)
