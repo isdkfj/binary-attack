@@ -38,6 +38,7 @@ def eval(net, data):
     print('real err:', np.sum((X[:, target_col].reshape(-1, 1) - np.dot(A, real_x.reshape(A.shape[1], 1))) ** 2))
     print('sol err:', val)
     rec = np.dot(A, sol.reshape(A.shape[1], 1))
+    print(np.sum(rec > 0.5))
     idx, best_acc = 0, 0
     for i in range(net.d1):
         acc = np.sum(np.isclose(X[:, i].reshape(-1, 1), rec > 0.5)) / X.shape[0]
