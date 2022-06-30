@@ -15,13 +15,13 @@ def eval(net, data):
     def hook_forward_fn(module, input, output):
         A.append(output.numpy()[:, :net.d1])
     net.inter.register_forward_hook(hook_forward_fn)
-    with torch.no_grad():
+    '''with torch.no_grad():
         for i, (data, target) in enumerate(train_loader):
             X.append(data.numpy())
             output = net(data)
             loss = criterion(output, target)
             train_acc += accuracy(output, target).item() * len(data)
-        train_acc /= len(train_dataset)
+        train_acc /= len(train_dataset)'''
     with torch.no_grad():
         test_acc = 0.0
         for i, (data, target) in enumerate(test_loader):
@@ -34,8 +34,13 @@ def eval(net, data):
     X = np.concatenate(X, axis=0)
     ans = equality_solve(A)
     print('total {} solution(s).'.format(len(ans)))
+    idx, best_acc = 0, 0
     for i in range(net.d1):
         for sol in ans:
             acc = np.sum(np.isclose(X[:, i], sol))
             if acc == X.shape[0]:
                 print('attack feature no.{} successfully.'.format(i))
+            acc /= X.shape[0]
+            if acc > best_acc:
+                idx, best_acc = i, acc
+    return train_acc, test_acc, best_acc, idx
