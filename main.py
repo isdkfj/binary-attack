@@ -29,7 +29,6 @@ def run_exp(d1, num_exp, mask):
         sum_train_acc += train_acc
         sum_test_acc += test_acc
         sum_attack_acc += attack_acc
-        print(idx)
     mask.print_info(sum_train_acc / num_exp, sum_test_acc / num_exp, sum_attack_acc / num_exp)
 
 dimensions = [8]
