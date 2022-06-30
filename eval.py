@@ -33,6 +33,10 @@ def eval(net, data):
     A = np.concatenate(A, axis=0)
     X = np.concatenate(X, axis=0)
     sol, val = leverage_score_solve(A, 10, net.d1 + 1)
+    target_col = net.d1 - 1
+    real_x = np.linalg.solve(np.dot(A.T, A), np.dot(A.T, X[:, target_col].reshape(-1, 1)))
+    print('real err:', np.sum((X[:, target_col].reshape(-1, 1) - np.dot(A, real_x.reshape(A.shape[1], 1))) ** 2))
+    print('sol err:', val)
     rec = np.dot(A, sol.reshape(A.shape[1], 1))
     idx, best_acc = 0, 0
     for i in range(net.d1):
