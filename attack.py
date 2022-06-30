@@ -62,7 +62,8 @@ def check_binary(A, x):
     for i in range(x.shape[0]):
         b = np.dot(A, x[i, :])
         l2 = np.mean(np.minimum(b ** 2, (b - 1.) ** 2))
-        if l2 < 0.1:
+        if l2 < 1e-3:
+            print(l2)
             ans.append((b > 0.5).astype(np.float32))
     return ans
 
