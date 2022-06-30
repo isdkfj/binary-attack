@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import numpy as np
 from utils import accuracy
-from attack import leverage_score_solve
+from attack import equality_solve
 
 def eval(net, data):
     train_dataset, train_loader, test_dataset, test_loader = data
@@ -32,11 +32,10 @@ def eval(net, data):
         test_acc /= len(test_dataset)
     A = np.concatenate(A, axis=0)
     X = np.concatenate(X, axis=0)
-    sol, val = leverage_score_solve(A, 10, net.d1 + 1)
-    rec = np.dot(A, sol.reshape(A.shape[1], 1))
-    idx, best_acc = 0, 0
+    ans = equality_solve(A)
+    print('total {} solution(s).', len(ans))
     for i in range(net.d1):
-        acc = np.sum(np.isclose(X[:, i].reshape(-1, 1), rec > 0.5)) / X.shape[0]
-        if acc > best_acc:
-            idx, best_acc = i, acc
-    return train_acc, test_acc, best_acc, idx
+        for sol in ans:
+            acc = np.sum(np.isclose(X[:, i], sol))
+            if acc == X.shape[0]:
+                print('attack feature no.{} successfully.')
