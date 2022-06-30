@@ -43,7 +43,7 @@ def global_minl2(A, x):
     return sol, val
 
 def leverage_score_solve(A, it, k):
-    sol, val = global_minl2(A, np.ones((A.shape[1], 1)))
+    #sol, val = global_minl2(A, np.ones((A.shape[1], 1)))
     # run several iterations
     for i in range(it):
         x = leverage_score_sampling(A, k)
@@ -51,3 +51,27 @@ def leverage_score_solve(A, it, k):
         if val is None or (v is not None and v < val):
             sol, val = p, v
     return sol, val
+
+@jit(nopython=True)
+def check_binary(A, x):
+    A = A.astype(np.float32)
+    x = x.astype(np.float32)
+    x = np.ascontiguousarray(x.T)
+    ans = []
+    for i in range(x.shape[0]):
+        b = np.dot(A, x[i, :])
+        l2 = np.mean(np.minimum(b ** 2, (b - 1.) ** 2))
+        if l2 < 0.1:
+            ans.append((b > 0.5).astype(np.float32))
+    return ans
+
+def equality_solve(A):
+    d = A.shape[1]
+    row = np.random.choice(A.shape[0], d, replace=False)
+    S = A[row, :]
+    while np.linalg.matrix_rank(S) < d:
+        row = np.random.choice(A.shape[0], d, replace=False)
+        S = A[row, :]
+    enum = create_enum(d)
+    sol = np.linalg.solve(S, enum)
+    return check_binary(A, sol)
