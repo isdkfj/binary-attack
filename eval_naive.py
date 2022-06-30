@@ -33,9 +33,9 @@ def eval(net, data):
     A = np.concatenate(A, axis=0)
     X = np.concatenate(X, axis=0)
     ans = equality_solve(A)
-    print('total {} solution(s).', len(ans))
+    print('total {} solution(s).'.format(len(ans)))
     for i in range(net.d1):
         for sol in ans:
             acc = np.sum(np.isclose(X[:, i], sol))
             if acc == X.shape[0]:
-                print('attack feature no.{} successfully.')
+                print('attack feature no.{} successfully.'.format(i))
