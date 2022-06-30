@@ -44,6 +44,7 @@ def global_minl2(A, x):
 
 def leverage_score_solve(A, it, k):
     #sol, val = global_minl2(A, np.ones((A.shape[1], 1)))
+    sol, val = None, None
     # run several iterations
     for i in range(it):
         x = leverage_score_sampling(A, k)
