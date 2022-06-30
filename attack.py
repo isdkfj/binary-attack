@@ -25,10 +25,11 @@ def leverage_score_sampling(A, k):
 def global_minl2(A, x):
     A = A.astype(np.float32)
     x = x.astype(np.float32)
+    x = np.ascontiguousarray(x.T)
     cov = np.dot(A.T, A)
     sol, val = None, None
-    for i in range(x.shape[1]):
-        b = np.dot(A, x[:, i])
+    for i in range(x.shape[0]):
+        b = np.dot(A, x[i, :])
         b = (b > 0.5)
         if np.any(b) == False:
             continue
