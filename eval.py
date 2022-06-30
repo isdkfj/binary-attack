@@ -15,13 +15,13 @@ def eval(net, data):
     def hook_forward_fn(module, input, output):
         A.append(output.numpy()[:, :net.d1])
     net.inter.register_forward_hook(hook_forward_fn)
-    with torch.no_grad():
+    '''with torch.no_grad():
         for i, (data, target) in enumerate(train_loader):
             X.append(data.numpy())
             output = net(data)
             loss = criterion(output, target)
             train_acc += accuracy(output, target).item() * len(data)
-        train_acc /= len(train_dataset)
+        train_acc /= len(train_dataset)'''
     with torch.no_grad():
         test_acc = 0.0
         for i, (data, target) in enumerate(test_loader):
