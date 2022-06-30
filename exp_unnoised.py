@@ -2,6 +2,7 @@ from utils import get_args, set_random_seed
 from data import load_data
 from train import prepare_dataset, train
 from eval_naive import eval
+from defend import Gaussian
 from module import Net
 
 args = get_args()
