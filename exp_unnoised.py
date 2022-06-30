@@ -31,7 +31,7 @@ elif args.data == 'nursery':
 elif args.data == 'covertype':
     num_classes = 7
     dimensions = [11]
-    hid = [150, 50, 10]
+    hid = [300, 100, 10]
 
 def run_exp(d1, num_exp, mask):
     sum_train_acc = 0
