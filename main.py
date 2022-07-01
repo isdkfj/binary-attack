@@ -15,7 +15,7 @@ if args.data == 'bank':
     num_classes = 2
     dimensions = [8]
     hid = [60, 30, 10]
-    binary_features = [7]
+    binary_features = [7, -1]
 elif args.data =='credit':
     num_classes = 2
     dimensions = [10]
