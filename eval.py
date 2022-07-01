@@ -32,7 +32,7 @@ def eval(net, data, bf):
         test_acc /= len(test_dataset)
     A = np.concatenate(A, axis=0)
     X = np.concatenate(X, axis=0)
-    sol, val = leverage_score_solve(A, 10, net.d1 + 1)
+    sol, val = leverage_score_solve(A, 20, net.d1 + 1)
     cov = np.dot(A.T, A)
     for bid in bf:
         real_x = np.linalg.solve(cov, np.dot(A.T, X[:, bid].reshape(-1, 1)))
