@@ -21,7 +21,9 @@ class Net(nn.Module):
 
     def forward(self, x):
         x1 = self.input1(x[:, :self.d1])
-        x1 = x1 + self.defense(x1.detach(), x.detach(), self.input1.weight.detach())
+        tmp = x1 + self.defense(x1.detach(), x.detach(), self.input1.weight.detach())
+        tmp *= torch.minimum(2 * torch.sum(x1 ** 2) / torch.sum(tmp ** 2), torch.tensor(1))
+        x1 = tmp
         x1 = self.inter(x1)
         x2 = self.input2(x[:, self.d1: self.d1 + self.d2])
         x = x1 + x2
