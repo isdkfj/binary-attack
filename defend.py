@@ -33,8 +33,7 @@ class Defense:
         r = x[:, -1].reshape(-1, 1) - x1[:, :self.d1] @ w.reshape(-1, 1)
         r = r @ sol[:self.d1].reshape(1, -1)
         r = r[:, :self.d1] @ Q
-        print(x1.shape, r.shape, torch.sum(x1 ** 2, axis=1).shape)
-        r *= torch.minimum(torch.sum(x1 ** 2, axis=1) / torch.sum(r ** 2, axis=1), torch.tensor(1))
+        r *= torch.minimum(torch.sum(x1 ** 2, axis=1) / torch.sum(r ** 2, axis=1), torch.tensor(1)).reshape(-1, 1)
         return r.detach()
 
     @staticmethod
