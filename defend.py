@@ -21,7 +21,6 @@ class Defense:
     def defense(self, x1, x, W):
         invW = torch.linalg.inv(W[:self.d1, :].T)
         Q = torch.linalg.solve(W[:self.d1, :].T, W.T)
-        r = torch.zeros(x1.size())
         w = torch.mean(invW, axis=1)
         # construct quadratic programming
         mat = torch.zeros((self.d1 + 1, self.d1 + 1))
@@ -34,6 +33,7 @@ class Defense:
         r = x[:, -1].reshape(-1, 1) - x1[:, :self.d1] @ w.reshape(-1, 1)
         r = r @ sol[:self.d1].reshape(1, -1)
         r = r[:, :self.d1] @ Q
+        print(x1.shape, r.shape, torch.sum(x1 ** 2, axis=1).shape)
         r *= torch.minimum(torch.sum(x1 ** 2, axis=1) / torch.sum(r ** 2, axis=1), torch.tensor(1))
         return r.detach()
 
