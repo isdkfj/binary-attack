@@ -39,3 +39,12 @@ def accuracy(output, target):
     # get the index of the max log-probability
     pred = output.max(1, keepdim=True)[1]
     return pred.eq(target.view_as(pred)).cpu().float().mean()
+
+def print_stat(name, a):
+    a = np.array(a)
+    # estimate mean
+    avg = a.mean()
+    sos = np.sum((a - avg) ** 2)
+    # estimate standard deviation
+    std = np.sqrt(sos / (a.shape[0] - 1))
+    print('{} : mean = {}, std = {}'.format(name, avg, std))
