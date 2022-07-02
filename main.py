@@ -10,6 +10,8 @@ set_random_seed(args.seed)
 
 # last column of X is fabricated label
 train_X, test_X, train_Y, test_Y = load_data(args.data, args.path, args.seed)
+print(train_X[0, :])
+print(test_X[0, :])
 
 if args.data == 'bank':
     num_classes = 2
