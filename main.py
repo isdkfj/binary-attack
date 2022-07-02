@@ -32,7 +32,7 @@ elif args.data == 'mushroom':
 elif args.data == 'nursery':
     num_classes = 5
     dimensions = [6]
-    hid = [200, 100, 50]
+    hid = [300, 150]
     binary_features = [5]
 elif args.data == 'covertype':
     num_classes = 7
