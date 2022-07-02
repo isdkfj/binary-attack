@@ -38,7 +38,7 @@ def train(net, data, verbose=False):
             loss.backward()
             optimizer.step()
         scheduler.step()
-        if epoch % 1 == 0 and verbose:
+        if epoch % 10 == 0 and verbose:
             with torch.no_grad():
                 total_loss = 0.0
                 total_acc = 0.0
