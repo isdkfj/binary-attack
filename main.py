@@ -60,7 +60,7 @@ if args.dm == 'gauss':
     for d1 in dimensions:
         gauss = Gaussian(args.eps)
         run_exp(d1, args.repeat, gauss)
-elif:
+elif args.dm == 'fake':
     for d1 in dimensions:
         fab = Defense(d1, train_X)
         run_exp(d1, args.repeat, fab)
