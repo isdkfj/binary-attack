@@ -56,7 +56,7 @@ def run_exp(d1, num_exp, mask):
         print(train_acc, test_acc, attack_acc)
     mask.print_info(list_train_acc, list_test_acc, list_attack_acc)
 
-if args.def == 'gauss':
+if args.dm == 'gauss':
     for d1 in dimensions:
         gauss = Gaussian(args.eps)
         run_exp(d1, args.repeat, gauss)
