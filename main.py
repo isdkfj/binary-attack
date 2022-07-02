@@ -37,7 +37,7 @@ elif args.data == 'nursery':
 elif args.data == 'covertype':
     num_classes = 7
     dimensions = [11]
-    hid = args.net
+    hid = [600, 300, 100]
     binary_features = [10]
 
 train_dataset, train_loader, validation_dataset, validation_loader, test_dataset, test_loader = prepare_dataset(train_X, train_Y, test_X, test_Y, args.bs)
