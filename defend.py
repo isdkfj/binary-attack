@@ -1,4 +1,5 @@
 import torch
+from utils import print_stat
 
 class Gaussian:
     def __init__(self, eps):
@@ -9,9 +10,9 @@ class Gaussian:
 
     def print_info(self, train_acc, test_acc, attack_acc):
         print('gaussian noise with eps = ', self.eps)
-        print('train_acc = ', train_acc)
-        print('test_acc = ', test_acc)
-        print('attack_acc = ', attack_acc)
+        print_stat('train_acc', train_acc)
+        print_stat('test_acc', test_acc)
+        print_stat('attack_acc', attack_acc)
         print('')
 
 class Defense:
@@ -38,7 +39,7 @@ class Defense:
     @staticmethod
     def print_info(train_acc, test_acc, attack_acc):
         print('our method')
-        print('train_acc = ', train_acc)
-        print('test_acc = ', test_acc)
-        print('attack_acc = ', attack_acc)
+        print_stat('train_acc', train_acc)
+        print_stat('test_acc', test_acc)
+        print_stat('attack_acc', attack_acc)
         print('')
