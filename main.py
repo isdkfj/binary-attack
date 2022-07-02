@@ -14,12 +14,12 @@ train_X, test_X, train_Y, test_Y = load_data(args.data, args.path, args.seed)
 if args.data == 'bank':
     num_classes = 2
     dimensions = [8]
-    hid = [60, 30]
+    hid = [60, 30, 10]
     binary_features = [7]
 elif args.data =='credit':
     num_classes = 2
     dimensions = [10]
-    hid = [50, 20, 10]
+    hid = [60, 30, 10]
     binary_features = [1]
 elif args.data == 'mushroom':
     num_classes = 2
