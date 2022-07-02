@@ -38,11 +38,13 @@ def train(net, data, verbose=False):
             loss.backward()
             optimizer.step()
         scheduler.step()
-        if epoch % 10 == 0 and verbose:
+        if epoch % 5 == 0 and verbose:
             with torch.no_grad():
                 total_loss = 0.0
                 total_acc = 0.0
                 for i, (data, target) in enumerate(train_loader):
+                    if epoch % 10 == 5:
+                        continue
                     output = net(data)
                     loss = criterion(output, target)
                     total_loss += loss.item() * len(data)
