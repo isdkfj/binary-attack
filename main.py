@@ -40,7 +40,7 @@ elif args.data == 'covertype':
     hid = args.net
     binary_features = [10]
 
-train_dataset, train_loader, validation_loader, test_dataset, test_loader = prepare_dataset(train_X, train_Y, test_X, test_Y, args.bs)
+train_dataset, train_loader, validation_dataset, validation_loader, test_dataset, test_loader = prepare_dataset(train_X, train_Y, test_X, test_Y, args.bs)
 
 def run_exp(d1, num_exp, mask):
     list_train_acc = []
@@ -48,8 +48,8 @@ def run_exp(d1, num_exp, mask):
     list_attack_acc = []
     for iter_exp in range(num_exp):
         net = Net(d1, train_X.shape[1] - d1 - 1, num_classes, hid, mask.defense)
-        train(net, (train_dataset, train_loader, validation_loader), verbose=args.verbose)
-        train_acc, test_acc, attack_acc, idx = eval(net, (train_dataset, train_loader, test_dataset, test_loader), binary_features)
+        train(net, (train_dataset, train_loader, validation_dataset, validation_loader), verbose=args.verbose)
+        train_acc, test_acc, attack_acc, idx = eval(net, (validation_dataset, validation_loader, test_dataset, test_loader), binary_features)
         list_train_acc.append(train_acc)
         list_test_acc.append(test_acc)
         list_attack_acc.append(attack_acc)
