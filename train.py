@@ -16,13 +16,13 @@ def prepare_dataset(train_X, train_Y, test_X, test_Y, batch_size):
             return self.data_tensor.size(0)
 
     train_dataset = TensorDataset(torch.tensor(train_X).float(), torch.tensor(train_Y))
-    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=0)
+    train_loader = DataLoader(train_dataset, batch_size=batch_size, num_workers=0, generator=torch.Generator())
 
     validation_dataset = TensorDataset(torch.tensor(train_X).float(), torch.tensor(train_Y))
-    validation_loader = DataLoader(validation_dataset, batch_size=batch_size, shuffle=False, num_workers=0, generator=torch.Generator())
+    validation_loader = DataLoader(validation_dataset, batch_size=batch_size, num_workers=0, generator=torch.Generator())
 
     test_dataset = TensorDataset(torch.tensor(test_X).float(), torch.tensor(test_Y))
-    test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=True, num_workers=0)
+    test_loader = DataLoader(test_dataset, batch_size=batch_size, num_workers=0, generator=torch.Generator())
     return train_dataset, train_loader, validation_dataset, validation_loader, test_dataset, test_loader
 
 def train(net, data, verbose=False):
