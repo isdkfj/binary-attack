@@ -36,10 +36,11 @@ def train(net, data, verbose=False):
             output = net(data)
             loss = criterion(output, target)
             loss.backward()
+            print(loss.item())
             nn.utils.clip_grad_value_(net.parameters(), 2)
             optimizer.step()
         scheduler.step()
-        if epoch % 10 == 0 and verbose:
+        if epoch % 1 == 0 and epoch <= 10 and verbose:
             with torch.no_grad():
                 total_loss = 0.0
                 total_acc = 0.0
