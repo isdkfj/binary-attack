@@ -34,6 +34,8 @@ def train(net, data, verbose=False):
 
     for epoch in range(1, num_epoch + 1):
         for i, (data, target) in enumerate(train_loader):
+            if i == 0:
+                print(data)
             optimizer.zero_grad()
             output = net(data)
             loss = criterion(output, target)
@@ -45,8 +47,6 @@ def train(net, data, verbose=False):
                 total_loss = 0.0
                 total_acc = 0.0
                 for i, (data, target) in enumerate(validation_loader):
-                    if i <= 5:
-                        print(data)
                     output = net(data)
                     loss = criterion(output, target)
                     total_loss += loss.item() * len(data)
