@@ -47,7 +47,7 @@ def run_exp(d1, num_exp, mask):
     list_test_acc = []
     list_attack_acc = []
     for iter_exp in range(num_exp):
-        net = Net(d1, train_X.shape[1] - d1 - 1, num_classes, hid, mask.defense)
+        net = Net(d1, train_X.shape[1] - d1 - 1, num_classes, args.net, mask.defense)
         train(net, (train_dataset, train_loader, validation_dataset, validation_loader), verbose=args.verbose)
         train_acc, test_acc, attack_acc, idx = eval(net, (validation_dataset, validation_loader, test_dataset, test_loader), binary_features)
         list_train_acc.append(train_acc)
@@ -57,9 +57,9 @@ def run_exp(d1, num_exp, mask):
     mask.print_info(list_train_acc, list_test_acc, list_attack_acc)
 
 for d1 in dimensions:
-    '''gauss = Gaussian(0.0)
+    gauss = Gaussian(0.0)
     run_exp(d1, args.repeat, gauss)
-    gauss = Gaussian(0.01)
+    '''gauss = Gaussian(0.01)
     run_exp(d1, args.repeat, gauss)
     gauss = Gaussian(0.05)
     run_exp(d1, args.repeat, gauss)
