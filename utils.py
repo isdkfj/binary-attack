@@ -9,7 +9,7 @@ def get_args():
     # dataset
     parser.add_argument('--path', type=str, help='dataset directory', default='./data')
     parser.add_argument('--data', type=str, help='dataset',
-                        choices=['bank', 'credit', 'news', 'mushroom', 'nursery', 'student', 'bike', 'covertype'],
+                        choices=['bank', 'credit', 'mushroom', 'nursery', 'covertype'],
                         default='bank')
     # neural network hyper-parameters
     parser.add_argument('--net', type=int, nargs='*', help='number of neurons in each hidden layer', default=[600, 300, 100])
@@ -18,6 +18,9 @@ def get_args():
     # experiment settings
     parser.add_argument('--repeat', type=int, help='number of trials', default=10)
     parser.add_argument('--verbose', action='store_true', help='print train accuracy and loss')
+    # defense method
+    parser.add_argument('--def', type=str, help='defense method', choices=['gauss', 'fake'], default='gauss')
+    parser.add_argument('--eps', type=float, help='eps in gaussian defense', default=0.0)
     args = parser.parse_args()
 
     try:
