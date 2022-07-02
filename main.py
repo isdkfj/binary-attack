@@ -56,20 +56,13 @@ def run_exp(d1, num_exp, mask):
         print(train_acc, test_acc, attack_acc)
     mask.print_info(list_train_acc, list_test_acc, list_attack_acc)
 
-for d1 in dimensions:
-    '''gauss = Gaussian(0.0)
-    run_exp(d1, args.repeat, gauss)
-    gauss = Gaussian(0.01)
-    run_exp(d1, args.repeat, gauss)
-    gauss = Gaussian(0.05)
-    run_exp(d1, args.repeat, gauss)
-    gauss = Gaussian(0.1)
-    run_exp(d1, args.repeat, gauss)
-    gauss = Gaussian(0.25)
-    run_exp(d1, args.repeat, gauss)
-    gauss = Gaussian(0.5)
-    run_exp(d1, args.repeat, gauss)'''
-    fab = Defense(d1, train_X)
-    run_exp(d1, args.repeat, fab)
+if args.def == 'gauss':
+    for d1 in dimensions:
+        gauss = Gaussian(args.eps)
+        run_exp(d1, args.repeat, gauss)
+elif:
+    for d1 in dimensions:
+        fab = Defense(d1, train_X)
+        run_exp(d1, args.repeat, fab)
         
         
