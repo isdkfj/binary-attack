@@ -36,10 +36,6 @@ def train(net, data, verbose=False):
             output = net(data)
             loss = criterion(output, target)
             loss.backward()
-            for p in net.parameters():
-                if float(p.abs().max()) > 2:
-                    print(epoch, loss.item())
-            nn.utils.clip_grad_value_(net.parameters(), 2)
             optimizer.step()
         scheduler.step()
         if (epoch % 10 == 0 or epoch <= 10) and verbose:
