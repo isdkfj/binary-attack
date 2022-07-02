@@ -69,7 +69,7 @@ for d1 in dimensions:
     run_exp(d1, args.repeat, gauss)
     gauss = Gaussian(0.5)
     run_exp(d1, args.repeat, gauss)'''
-    fab = Defense(d1)
+    fab = Defense(d1, train_X)
     run_exp(d1, args.repeat, fab)
         
         
