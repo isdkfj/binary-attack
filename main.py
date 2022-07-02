@@ -32,7 +32,7 @@ elif args.data == 'mushroom':
 elif args.data == 'nursery':
     num_classes = 5
     dimensions = [6]
-    hid = [300, 150]
+    hid = [600, 300, 100]
     binary_features = [5]
 elif args.data == 'covertype':
     num_classes = 7
@@ -47,7 +47,7 @@ def run_exp(d1, num_exp, mask):
     list_test_acc = []
     list_attack_acc = []
     for iter_exp in range(num_exp):
-        net = Net(d1, train_X.shape[1] - d1 - 1, num_classes, args.net, mask.defense)
+        net = Net(d1, train_X.shape[1] - d1 - 1, num_classes, hid, mask.defense)
         train(net, (train_dataset, train_loader, validation_dataset, validation_loader), verbose=args.verbose)
         train_acc, test_acc, attack_acc, idx = eval(net, (validation_dataset, validation_loader, test_dataset, test_loader), binary_features)
         list_train_acc.append(train_acc)
