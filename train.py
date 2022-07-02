@@ -35,26 +35,21 @@ def train(net, data, verbose=False):
 
     for epoch in range(1, num_epoch + 1):
         for i, (data, target) in enumerate(train_loader):
-            if i == 0:
-                print(data)
             optimizer.zero_grad()
             output = net(data)
             loss = criterion(output, target)
             loss.backward()
             optimizer.step()
         scheduler.step()
-        if epoch % 5 == 0 and verbose:
+        if epoch % 10 == 0 and verbose:
             with torch.no_grad():
                 total_loss = 0.0
                 total_acc = 0.0
                 for i, (data, target) in enumerate(validation_loader):
-                    continue
                     output = net(data)
                     loss = criterion(output, target)
                     total_loss += loss.item() * len(data)
                     total_acc += accuracy(output, target).item() * len(data)
-                for i, (data, target) in enumerate(validation_loader):
-                    pass
                 total_loss /= len(validation_dataset)
                 total_acc /= len(validation_dataset)
                 print('epoch {} train loss:'.format(epoch), total_loss)
