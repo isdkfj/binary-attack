@@ -15,7 +15,7 @@ if args.data == 'bank':
     num_classes = 2
     dimensions = [8]
     hid = [60, 30, 10]
-    binary_features = [7, -1]
+    binary_features = [7]
 elif args.data =='credit':
     num_classes = 2
     dimensions = [10]
@@ -43,18 +43,18 @@ elif args.data == 'covertype':
 train_dataset, train_loader, test_dataset, test_loader = prepare_dataset(train_X, train_Y, test_X, test_Y, args.bs)
 
 def run_exp(d1, num_exp, mask):
-    sum_train_acc = 0
-    sum_test_acc = 0
-    sum_attack_acc = 0
+    list_train_acc = []
+    list_test_acc = []
+    list_attack_acc = []
     for iter_exp in range(num_exp):
         net = Net(d1, train_X.shape[1] - d1 - 1, num_classes, hid, mask.defense)
         train(net, (train_dataset, train_loader), verbose=args.verbose)
         train_acc, test_acc, attack_acc, idx = eval(net, (train_dataset, train_loader, test_dataset, test_loader), binary_features)
-        sum_train_acc += train_acc
-        sum_test_acc += test_acc
-        sum_attack_acc += attack_acc
+        list_train_acc.append(train_acc)
+        list_test_acc.append(test_acc)
+        list_attack_acc.append(attack_acc)
         print(train_acc, test_acc, attack_acc)
-    mask.print_info(sum_train_acc / num_exp, sum_test_acc / num_exp, sum_attack_acc / num_exp)
+    mask.print_info(list_train_acc, list_test_acc, list_attack_acc)
 
 for d1 in dimensions:
     '''gauss = Gaussian(0.0)
