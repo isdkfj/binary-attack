@@ -32,10 +32,10 @@ def train(net, data, verbose=False):
 
     for epoch in range(1, num_epoch + 1):
         for i, (data, target) in enumerate(train_loader):
-            print(target)
             optimizer.zero_grad()
             output = net(data)
             loss = criterion(output, target)
+            print(loss.item())
             loss.backward()
             optimizer.step()
         scheduler.step()
