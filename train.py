@@ -52,6 +52,8 @@ def train(net, data, verbose=False):
                     loss = criterion(output, target)
                     total_loss += loss.item() * len(data)
                     total_acc += accuracy(output, target).item() * len(data)
+                for i, (data, target) in enumerate(validation_loader):
+                    pass
                 total_loss /= len(validation_dataset)
                 total_acc /= len(validation_dataset)
                 print('epoch {} train loss:'.format(epoch), total_loss)
