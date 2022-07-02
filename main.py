@@ -56,9 +56,9 @@ def run_exp(d1, num_exp, mask):
     mask.print_info(sum_train_acc / num_exp, sum_test_acc / num_exp, sum_attack_acc / num_exp)
 
 for d1 in dimensions:
-    '''gauss = Gaussian(0.0)
+    gauss = Gaussian(0.0)
     run_exp(d1, args.repeat, gauss)
-    gauss = Gaussian(0.01)
+    '''gauss = Gaussian(0.01)
     run_exp(d1, args.repeat, gauss)
     gauss = Gaussian(0.05)
     run_exp(d1, args.repeat, gauss)
