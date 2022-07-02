@@ -17,14 +17,15 @@ def prepare_dataset(train_X, train_Y, test_X, test_Y, batch_size):
 
     train_dataset = TensorDataset(torch.tensor(train_X).float(), torch.tensor(train_Y))
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=0)
-    validation_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=False, num_workers=0)
+    validation_dataset = TensorDataset(torch.tensor(train_X).float(), torch.tensor(train_Y))
+    validation_loader = DataLoader(validation_dataset, batch_size=batch_size, shuffle=False, num_workers=0)
 
     test_dataset = TensorDataset(torch.tensor(test_X).float(), torch.tensor(test_Y))
     test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=True, num_workers=0)
-    return train_dataset, train_loader, validation_loader, test_dataset, test_loader
+    return train_dataset, train_loader, validation_dataset, validation_loader, test_dataset, test_loader
 
 def train(net, data, verbose=False):
-    train_dataset, train_loader, validation_loader = data
+    train_dataset, train_loader, validation_dataset, validation_loader = data
     criterion = nn.CrossEntropyLoss()
     optimizer = torch.optim.SGD(net.parameters(), lr=0.1, momentum=0.9, weight_decay=1e-4)
     scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones=[30, 60, 90])
@@ -48,7 +49,7 @@ def train(net, data, verbose=False):
                     loss = criterion(output, target)
                     total_loss += loss.item() * len(data)
                     total_acc += accuracy(output, target).item() * len(data)
-                total_loss /= len(train_dataset)
-                total_acc /= len(train_dataset)
+                total_loss /= len(validation_dataset)
+                total_acc /= len(validation_dataset)
                 print('epoch {} train loss:'.format(epoch), total_loss)
                 print('epoch {} train acc:'.format(epoch), total_acc)
