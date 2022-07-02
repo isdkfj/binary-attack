@@ -31,8 +31,6 @@ def eval(net, data, bf):
         test_acc /= len(test_dataset)
     A = np.concatenate(A, axis=0)
     X = np.concatenate(X, axis=0)
-    print(A[[1, 100, 300, 500, 1000], :])
-    print(X[[1, 100, 300, 500, 1000], :])
     sol, val = leverage_score_solve(A, 20, net.d1 + 1)
     '''cov = np.dot(A.T, A)
     for bid in bf:
