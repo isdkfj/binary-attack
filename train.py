@@ -17,8 +17,9 @@ def prepare_dataset(train_X, train_Y, test_X, test_Y, batch_size):
 
     train_dataset = TensorDataset(torch.tensor(train_X).float(), torch.tensor(train_Y))
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=0)
+
     validation_dataset = TensorDataset(torch.tensor(train_X).float(), torch.tensor(train_Y))
-    validation_loader = DataLoader(validation_dataset, batch_size=batch_size, shuffle=False, num_workers=0)
+    validation_loader = DataLoader(validation_dataset, batch_size=batch_size, shuffle=False, num_workers=0, generator=torch.Generator())
 
     test_dataset = TensorDataset(torch.tensor(test_X).float(), torch.tensor(test_Y))
     test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=True, num_workers=0)
@@ -52,8 +53,6 @@ def train(net, data, verbose=False):
                     loss = criterion(output, target)
                     total_loss += loss.item() * len(data)
                     total_acc += accuracy(output, target).item() * len(data)
-                for i, (data, target) in enumerate(validation_loader):
-                    pass
                 total_loss /= len(validation_dataset)
                 total_acc /= len(validation_dataset)
                 print('epoch {} train loss:'.format(epoch), total_loss)
