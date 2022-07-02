@@ -36,6 +36,8 @@ def train(net, data, verbose=False):
             output = net(data)
             loss = criterion(output, target)
             loss.backward()
+            for p in net.parameters():
+                print(p.abs().max())
             optimizer.step()
         scheduler.step()
         if epoch % 10 == 0 and verbose:
