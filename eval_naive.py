@@ -23,7 +23,6 @@ def eval(net, data):
             train_acc += accuracy(output, target).item() * len(data)
         train_acc /= len(train_dataset)
     with torch.no_grad():
-        test_acc = 0.0
         for i, (data, target) in enumerate(test_loader):
             X.append(data.numpy())
             output = net(data)
