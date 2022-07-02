@@ -23,8 +23,6 @@ def prepare_dataset(train_X, train_Y, test_X, test_Y, batch_size):
     return train_dataset, train_loader, test_dataset, test_loader
 
 def train(net, data, verbose=False):
-    for p in net.parameters():
-        print(p.norm())
     train_dataset, train_loader = data
     criterion = nn.CrossEntropyLoss()
     optimizer = torch.optim.SGD(net.parameters(), lr=0.1, momentum=0.9, weight_decay=1e-4)
@@ -34,6 +32,7 @@ def train(net, data, verbose=False):
 
     for epoch in range(1, num_epoch + 1):
         for i, (data, target) in enumerate(train_loader):
+            print(target)
             optimizer.zero_grad()
             output = net(data)
             loss = criterion(output, target)
