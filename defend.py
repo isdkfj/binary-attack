@@ -4,9 +4,10 @@ from utils import print_stat
 class Gaussian:
     def __init__(self, eps):
         self.eps = eps
+        self.generator = torch.Generator()
 
     def defense(self, x1, *args):
-        return torch.randn(x1.size()) * self.eps
+        return torch.randn(x1.size(), generator=self.generator) * self.eps
 
     def print_info(self, train_acc, test_acc, attack_acc):
         print('gaussian noise with eps = ', self.eps)
