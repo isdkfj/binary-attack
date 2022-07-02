@@ -43,7 +43,7 @@ def train(net, data, verbose=False):
             with torch.no_grad():
                 total_loss = 0.0
                 total_acc = 0.0
-                for i, (data, target) in enumerate(train_loader):
+                for i, (data, target) in enumerate(validation_loader):
                     output = net(data)
                     loss = criterion(output, target)
                     total_loss += loss.item() * len(data)
