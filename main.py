@@ -14,7 +14,7 @@ train_X, test_X, train_Y, test_Y = load_data(args.data, args.path, args.seed)
 if args.data == 'bank':
     num_classes = 2
     dimensions = [8]
-    hid = [60, 30, 10]
+    hid = [60, 30]
     binary_features = [7]
 elif args.data =='credit':
     num_classes = 2
