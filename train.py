@@ -47,9 +47,8 @@ def train(net, data, verbose=False):
                 total_loss = 0.0
                 total_acc = 0.0
                 for i, (data, target) in enumerate(validation_loader):
-                    output = net(data)
-                    output = net(data)
                     continue
+                    output = net(data)
                     loss = criterion(output, target)
                     total_loss += loss.item() * len(data)
                     total_acc += accuracy(output, target).item() * len(data)
