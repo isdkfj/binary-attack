@@ -17,14 +17,19 @@ class Gaussian:
         print('')
 
 class Defense:
-    def __init__(self, d1):
+    def __init__(self, d1, X):
         self.d1 = d1
+        self.binary_features = []
+        for i in range(X.shape[1]):
+            s0 = np.sum(np.isclose(X[:, i], 0))
+            s1 = np.sum(np.isclose(X[:, i], 1))
+            if s0 + s1 == X.shape[0]:
+                self.binary_features.append(i)
 
     def defense(self, x1, x, W):
         invW = torch.linalg.inv(W[:self.d1, :].T)
         Q = torch.linalg.solve(W[:self.d1, :].T, W.T)
-        w = torch.mean(invW, axis=1)
-        w = invW[:, 5]
+        w = torch.mean(invW[:, self.binary_features], axis=1)
         # construct quadratic programming
         mat = torch.zeros((self.d1 + 1, self.d1 + 1))
         mat[:self.d1, :self.d1] = 2 * Q @ Q.T
