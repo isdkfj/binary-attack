@@ -17,7 +17,7 @@ def prepare_dataset(train_X, train_Y, test_X, test_Y, batch_size):
 
     train_dataset = TensorDataset(torch.tensor(train_X).float(), torch.tensor(train_Y))
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=0)
-    validation_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=0)
+    validation_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=False, num_workers=0)
 
     test_dataset = TensorDataset(torch.tensor(test_X).float(), torch.tensor(test_Y))
     test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=True, num_workers=0)
