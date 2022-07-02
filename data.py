@@ -62,6 +62,14 @@ def load_data(dname, path, SEED):
     elif dname == 'nursery':
         path = os.path.join(path, 'nursery/nursery.csv')
         df = pd.read_csv(path)
+        df['parents'] = df['parents'].map({'usual': 0, 'pretentious': 1, 'great_pret': 2})
+        df['has_nurs'] = df['has_nurs'].map({'proper': 0, 'less_proper': 1, 'improper': 2, 'critical': 3, 'very_crit': 4})
+        df['form'] = df['form'].map({'complete': 0, 'completed': 1, 'incomplete': 2, 'foster': 3})
+        df['children'] = df['children'].map({'1': 1, '2': 2, '3': 3, 'more': 4})
+        df['housing'] = df['housing'].map({'convenient': 0, 'less_conv': 1, 'critical': 2})
+        df['finance'] = df['finance'].map({'convenient': 0, 'inconv': 1})
+        df['social'] = df['social'].map({'nonprob': 0, 'slightly_prob': 1, 'problematic': 2})
+        df['health'] = df['health'].map({'recommended': 0, 'priority': 1, 'not_recom': 2})
         for attr in df.columns:
             if df[attr].dtype == 'object':
                 encoder= LabelEncoder().fit(df[attr])
