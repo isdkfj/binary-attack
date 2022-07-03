@@ -26,6 +26,7 @@ class Defense:
             s1 = np.sum(np.isclose(X[:, i], 1))
             if s0 + s1 == X.shape[0]:
                 self.binary_features.append(i)
+        print(self.binary_features)
 
     def defense(self, x1, x, W):
         invW = torch.linalg.inv(W[:self.d1, :].T)
