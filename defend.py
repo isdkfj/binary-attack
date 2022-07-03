@@ -18,15 +18,9 @@ class Gaussian:
         print('')
 
 class Defense:
-    def __init__(self, d1, X):
+    def __init__(self, d1, binary_features):
         self.d1 = d1
-        self.binary_features = []
-        for i in range(X.shape[1] - 1):
-            s0 = np.sum(np.isclose(X[:, i], 0))
-            s1 = np.sum(np.isclose(X[:, i], 1))
-            if s0 + s1 == X.shape[0]:
-                self.binary_features.append(i)
-        print(self.binary_features)
+        self.binary_features = binary_features
 
     def defense(self, x1, x, W):
         invW = torch.linalg.inv(W[:self.d1, :].T)
