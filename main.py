@@ -13,32 +13,34 @@ train_X, test_X, train_Y, test_Y = load_data(args.data, args.path, args.seed)
 
 if args.data == 'bank':
     num_classes = 2
-    dimensions = [8]
+    d1 = 8
     hid = [60, 30, 10]
-    binary_features = [7]
 elif args.data =='credit':
     num_classes = 2
-    dimensions = [10]
+    d1 = 10
     hid = [60, 30, 10]
-    binary_features = [1]
 elif args.data == 'mushroom':
     num_classes = 2
-    dimensions = [15]
+    d1 = 15
     hid = [50, 20]
-    binary_features = [3]
     # swap binary features out
     train_X[:, [5, 6, 7, 9, 15, 16, 17, 18]] = train_X[:, [15, 16, 17, 18, 5, 6, 7, 9]]
     test_X[:, [5, 6, 7, 9, 15, 16, 17, 18]] = test_X[:, [15, 16, 17, 18, 5, 6, 7, 9]]
 elif args.data == 'nursery':
     num_classes = 5
-    dimensions = [6]
+    d1 = 6
     hid = [600, 300, 100]
-    binary_features = [5]
 elif args.data == 'covertype':
     num_classes = 7
-    dimensions = [11]
+    d1 = 11
     hid = [600, 300, 100]
-    binary_features = [10]
+
+binary_features = []
+for i in range (d1):
+    if np.sum(np.isclose(train_X[:, i], 0)) + np.sum(np.isclose(train_X[:, i], 1)) == train_X.shape[0]:
+        binary_features.append(i)
+
+print('binary features:', binary_features)
 
 train_dataset, train_loader, validation_dataset, validation_loader, test_dataset, test_loader = prepare_dataset(train_X, train_Y, test_X, test_Y, args.bs)
 
@@ -57,12 +59,10 @@ def run_exp(d1, num_exp, mask):
     mask.print_info(list_train_acc, list_test_acc, list_attack_acc)
 
 if args.dm == 'gauss':
-    for d1 in dimensions:
-        gauss = Gaussian(args.eps)
-        run_exp(d1, args.repeat, gauss)
+    gauss = Gaussian(args.eps)
+    run_exp(d1, args.repeat, gauss)
 elif args.dm == 'fake':
-    for d1 in dimensions:
-        fab = Defense(d1, train_X)
-        run_exp(d1, args.repeat, fab)
+    fab = Defense(d1, binary_features)
+    run_exp(d1, args.repeat, fab)
         
         
