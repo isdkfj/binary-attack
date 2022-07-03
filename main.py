@@ -4,6 +4,7 @@ from train import prepare_dataset, train
 from eval import eval
 from defend import Gaussian, Defense
 from module import Net
+import numpy as np
 
 args = get_args()
 set_random_seed(args.seed)
