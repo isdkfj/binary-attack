@@ -27,8 +27,8 @@ elif args.data == 'mushroom':
     hid = [50, 20]
     binary_features = [3]
     # swap binary features out
-    train_X[:, [5, 6, 7, 9, 10, 11, 12, 13]] = train_X[:, [10, 11, 12, 13, 5, 6, 7, 9]]
-    test_X[:, [5, 6, 7, 9, 10, 11, 12, 13]] = test_X[:, [10, 11, 12, 13, 5, 6, 7, 9]]
+    train_X[:, [5, 6, 7, 9, 15, 16, 17, 18]] = train_X[:, [15, 16, 17, 18, 5, 6, 7, 9]]
+    test_X[:, [5, 6, 7, 9, 15, 16, 17, 18]] = test_X[:, [15, 16, 17, 18, 5, 6, 7, 9]]
 elif args.data == 'nursery':
     num_classes = 5
     dimensions = [6]
