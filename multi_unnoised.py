@@ -28,8 +28,8 @@ elif args.data == 'mushroom':
     f1 = [5, 6, 7, 9]
     f2 = [15, 16, 17, 18]
     for i in range(5 - args.nb):
-        train_x[:, [f1[i], f2[i]]] = train_X[:, [f2[i], f1[i]]]
-        test_x[:, [f1[i], f2[i]]] = test_X[:, [f2[i], f1[i]]]
+        train_X[:, [f1[i], f2[i]]] = train_X[:, [f2[i], f1[i]]]
+        test_X[:, [f1[i], f2[i]]] = test_X[:, [f2[i], f1[i]]]
 elif args.data == 'nursery':
     num_classes = 5
     d1 = 6
