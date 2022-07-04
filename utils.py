@@ -22,7 +22,7 @@ def get_args():
     parser.add_argument('--dm', type=str, help='defense method', choices=['gauss', 'fake'], default='gauss')
     parser.add_argument('--eps', type=float, help='eps in gaussian defense', default=0.0)
     # federated option
-    parser.add_argument('--nb', type=int, help='number of binary features, used for mushroom only', default=1)
+    parser.add_argument('--nb', type=int, help='number of binary features', default=1)
     args = parser.parse_args()
 
     try:
