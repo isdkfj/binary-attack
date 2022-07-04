@@ -56,7 +56,7 @@ def run_exp(d1, num_exp, mask):
         list_train_acc.append(train_acc)
         list_test_acc.append(test_acc)
         list_attack_acc.append(attack_acc)
-        print(train_acc, test_acc, attack_acc)
+        print(train_acc, test_acc, attack_acc, idx)
     mask.print_info(list_train_acc, list_test_acc, list_attack_acc)
 
 if args.dm == 'gauss':
