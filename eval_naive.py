@@ -42,4 +42,7 @@ def eval(net, data, binary_features):
             acc /= X.shape[0]
             if acc > best_acc:
                 idx, best_acc = i, acc
+    for sol in ans:
+        if np.sum(np.isclose(X[:, -1], sol)) == X.shape[0]:
+            print('attack fake feature successfully.'.format(i))
     return train_acc, test_acc, best_acc, idx
