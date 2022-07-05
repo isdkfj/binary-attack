@@ -42,7 +42,7 @@ def train(net, data, verbose=False):
             nn.utils.clip_grad_value_(net.parameters(), 2)
             optimizer.step()
         scheduler.step()
-        if verbose and epoch % 2 == 0:
+        if verbose and epoch % 10 == 0:
             with torch.no_grad():
                 total_loss = 0.0
                 total_acc = 0.0
