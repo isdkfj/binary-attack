@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, Dataset
 from utils import accuracy
+from tqdm import tqdm
 
 def prepare_dataset(train_X, train_Y, test_X, test_Y, batch_size):
     class TensorDataset(Dataset):
@@ -33,7 +34,7 @@ def train(net, data, verbose=False):
 
     num_epoch = 100
 
-    for epoch in range(1, num_epoch + 1):
+    for epoch in tqdm(range(1, num_epoch + 1)):
         for i, (data, target) in enumerate(train_loader):
             optimizer.zero_grad()
             output = net(data)
@@ -42,7 +43,7 @@ def train(net, data, verbose=False):
             nn.utils.clip_grad_value_(net.parameters(), 2)
             optimizer.step()
         scheduler.step()
-        if verbose and epoch % 10 == 0:
+        if verbose:
             with torch.no_grad():
                 total_loss = 0.0
                 total_acc = 0.0
