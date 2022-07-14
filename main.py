@@ -33,24 +33,26 @@ elif args.data == 'nursery':
     hid = [600, 300, 100]
 elif args.data == 'covertype':
     num_classes = 7
-    d1 = 11
-    hid = [1000, 600, 300, 100]
+    d1 = 10
+    hid = [200, 200, 200]
+    train_X[:, [6, 7, 8, 9, 10, 11, 12, 13]] = train_X[:, [10, 11, 12, 13, 6, 7, 8, 9]]
+    test_X[:, [6, 7, 8, 9, 10, 11, 12, 13]] = test_X[:, [10, 11, 12, 13, 6, 7, 8, 9]]
 
 binary_features = []
 for i in range (d1):
-    if np.sum(np.isclose(train_X[:, i], 0)) + np.sum(np.isclose(train_X[:, i], 1)) == train_X.shape[0]:
+    if np.sum(np.isclose(train_X[:, i], 0)) + np.sum(np.isclose(train_X[:, i], 1)) == train_X.shape[0] and np.sum(np.isclose(test_X[:, i], 0)) + np.sum(np.isclose(test_X[:, i], 1)) == test_X.shape[0]:
         binary_features.append(i)
 
 print('binary features:', binary_features)
 
 train_dataset, train_loader, validation_dataset, validation_loader, test_dataset, test_loader = prepare_dataset(train_X, train_Y, test_X, test_Y, args.bs)
 
-def run_exp(d1, num_exp, mask):
+def run_exp(d1, num_exp, defense):
     list_train_acc = []
     list_test_acc = []
     list_attack_acc = []
     for iter_exp in range(num_exp):
-        net = Net(d1, train_X.shape[1] - d1 - 1, num_classes, hid, mask.defense)
+        net = Net(d1, train_X.shape[1] - d1 - 1, num_classes, hid, defense)
         train(net, (train_dataset, train_loader, validation_dataset, validation_loader), verbose=args.verbose)
         train_acc, test_acc, attack_acc, idx = eval(net, (validation_dataset, validation_loader, test_dataset, test_loader), binary_features)
         list_train_acc.append(train_acc)
