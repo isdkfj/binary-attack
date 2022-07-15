@@ -49,7 +49,7 @@ def eval(net, data, bf):
         for sol in ans:
             acc = np.sum(np.isclose(feat_sum, sol))
             if acc == X.shape[0]:
-                print('attack sum of features no.{} successfully.'.format(i))
+                print('attack sum of features no.{} successfully.'.format(feats))
             acc /= X.shape[0]
             if acc > best_acc:
                 idx, best_acc = feats, acc
