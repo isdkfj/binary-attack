@@ -46,7 +46,7 @@ def train(net, data, verbose=False):
             optimizer.step()
         scheduler.step()
         if verbose:
-            net.defense.set_mode('eval')
+            net.defense.set_mode('validation')
             with torch.no_grad():
                 total_loss = 0.0
                 total_acc = 0.0
