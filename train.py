@@ -33,17 +33,20 @@ def train(net, data, verbose=False):
     scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones=[30, 60, 90])
 
     num_epoch = 100
+    
+    Iterator = range(1, num_epoch + 1) if verbose else tqdm(range(1, num_epoch + 1))
 
-    for epoch in tqdm(range(1, num_epoch + 1)):
+    for epoch in Iterator:
+        net.defense.set_mode('train')
         for i, (data, target) in enumerate(train_loader):
             optimizer.zero_grad()
             output = net(data)
             loss = criterion(output, target)
             loss.backward()
-            nn.utils.clip_grad_value_(net.parameters(), 2)
             optimizer.step()
         scheduler.step()
         if verbose:
+            net.defense.set_mode('eval')
             with torch.no_grad():
                 total_loss = 0.0
                 total_acc = 0.0
