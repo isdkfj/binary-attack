@@ -9,10 +9,10 @@ def process_binary(X):
     for i in range(X.shape[1]):
         s0 = np.sum(np.isclose(X[:, i], 0))
         s1 = np.sum(np.isclose(X[:, i], 1))
+        if s0 < s1:
+            X[:, i] = 1 - X[:, i]
         if s0 + s1 == X.shape[0]:
             print('feature no.{} is binary, {}% are 1\'s'.format(i, s1 / X.shape[0] * 100))
-        elif s0 < s1:
-            X[:, i] = 1 - X[:, i]
 
 def load_data(dname, path, SEED):
     if dname == 'bank':
@@ -24,7 +24,6 @@ def load_data(dname, path, SEED):
                 df[attr] = encoder.transform(df[attr])
         X = df.values[:, :-1]
         Y = df.values[:, -1].astype('int')
-        X[:, 7] = 1 - X[:, 7]
         process_binary(X)
         fake_label = np.random.randint(0, 2, (X.shape[0], 1))
         X = np.concatenate([X, fake_label], axis=1)
@@ -54,7 +53,6 @@ def load_data(dname, path, SEED):
                 df[attr] = encoder.transform(df[attr])
         X = df.values[:, 1:].astype('float')
         Y = df.values[:, 0].astype('int')
-        X[:, [3, 6, 7]] = 1 - X[:, [3, 6, 7]]
         process_binary(X)
         fake_label = np.random.randint(0, 2, (X.shape[0], 1))
         X = np.concatenate([X, fake_label], axis=1)
