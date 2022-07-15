@@ -13,6 +13,7 @@ def process_binary(X, train_X, test_X):
             if s0 > s1:
                 train_X[:, i] = 1 - train_X[:, i]
                 test_X[:, i] = 1 - test_X[:, i]
+                s0, s1 = s1, s0
             print('feature no.{} is binary, {}% are 1\'s'.format(i, s1 / X.shape[0] * 100))
         elif s0 < s1:
             train_X[:, i] = 1 - train_X[:, i]
