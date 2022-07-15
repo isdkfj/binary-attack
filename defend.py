@@ -9,7 +9,7 @@ class Gaussian:
         self.val_generator = torch.Generator()
         self.generator = self.train_generator
 
-    def defense(self, x1):
+    def noise(self, x1):
         return torch.randn(x1.size(), generator=self.generator) * self.eps
 
     def set_mode(self, mode):
