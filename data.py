@@ -4,17 +4,19 @@ import pandas as pd
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 
-def process_binary(X):
+def process_binary(X, train_X, test_X):
     print('#instances: {}, #features: {}'.format(X.shape[0], X.shape[1]))
     for i in range(X.shape[1]):
         s0 = np.sum(np.isclose(X[:, i], 0))
         s1 = np.sum(np.isclose(X[:, i], 1))
         if s0 + s1 == X.shape[0]:
             if s0 > s1:
-                X[:, i] = 1 - X[:, i]
+                train_X[:, i] = 1 - train_X[:, i]
+                test_X[:, i] = 1 - test_X[:, i]
             print('feature no.{} is binary, {}% are 1\'s'.format(i, s1 / X.shape[0] * 100))
         elif s0 < s1:
-            X[:, i] = 1 - X[:, i]
+            train_X[:, i] = 1 - train_X[:, i]
+            test_X[:, i] = 1 - test_X[:, i]
 
 def load_data(dname, path, SEED):
     if dname == 'bank':
@@ -26,7 +28,6 @@ def load_data(dname, path, SEED):
                 df[attr] = encoder.transform(df[attr])
         X = df.values[:, :-1]
         Y = df.values[:, -1].astype('int')
-        process_binary(X)
         fake_label = np.random.randint(0, 2, (X.shape[0], 1))
         X = np.concatenate([X, fake_label], axis=1)
         train_X, test_X, train_Y, test_Y = train_test_split(X, Y, test_size=0.1, random_state=SEED)
@@ -41,7 +42,6 @@ def load_data(dname, path, SEED):
         X = df.values[:, :-1]
         Y = df.values[:, -1].astype('int')
         X[:, 1] -= 1
-        process_binary(X)
         fake_label = np.random.randint(0, 2, (X.shape[0], 1))
         X = np.concatenate([X, fake_label], axis=1)
         train_X, test_X, train_Y, test_Y = train_test_split(X, Y, test_size=0.1, random_state=SEED)
@@ -55,7 +55,6 @@ def load_data(dname, path, SEED):
                 df[attr] = encoder.transform(df[attr])
         X = df.values[:, 1:].astype('float')
         Y = df.values[:, 0].astype('int')
-        process_binary(X)
         fake_label = np.random.randint(0, 2, (X.shape[0], 1))
         X = np.concatenate([X, fake_label], axis=1)
         train_X, test_X, train_Y, test_Y = train_test_split(X, Y, test_size=0.1, random_state=SEED)
@@ -76,7 +75,6 @@ def load_data(dname, path, SEED):
                 df[attr] = encoder.transform(df[attr])
         X = df.values[:, :-1].astype('float')
         Y = df.values[:, -1].astype('int')
-        process_binary(X)
         fake_label = np.random.randint(0, 2, (X.shape[0], 1))
         X = np.concatenate([X, fake_label], axis=1)
         train_X, test_X, train_Y, test_Y = train_test_split(X, Y, test_size=0.1, random_state=SEED)
@@ -89,14 +87,15 @@ def load_data(dname, path, SEED):
                 df[attr] = encoder.transform(df[attr])
         X = df.values[:, :-1].astype('float')
         Y = df.values[:, -1].astype('int') - 1
-        process_binary(X)
         fake_label = np.random.randint(0, 2, (X.shape[0], 1))
         X = np.concatenate([X, fake_label], axis=1)
         train_X, test_X, train_Y, test_Y = train_test_split(X, Y, test_size=0.1, random_state=SEED)
     min_X = np.min(train_X, axis=0)
+    X -= min_X
     train_X -= min_X
     test_X -= min_X
     max_X = np.max(train_X, axis=0)
+    X /= max_X
     train_X /= max_X
     test_X /= max_X
     return train_X, test_X, train_Y, test_Y
