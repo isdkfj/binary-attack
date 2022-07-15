@@ -23,7 +23,7 @@ class Net(nn.Module):
         self.defense = defense
 
     def forward(self, x):
-        if isinstance(defense, Defense):
+        if isinstance(self.defense, Defense):
             x1 = self.input1_sub(x[:, :self.d1])
             x1 = self.input1(torch.cat((x1, x[:, -1].reshape(-1, 1)), axis=1))
         else:
