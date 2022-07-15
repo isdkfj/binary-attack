@@ -46,6 +46,8 @@ def eval(net, data, bf):
         if acc > best_acc:
             idx, best_acc = i, acc
     for feats in powerset(bf):
+        if len(feats) < 2:
+            continue
         feat_sum = np.sum(X[:, feats], axis=1)
         acc = np.sum(np.isclose(feat_sum.reshape(-1, 1), rec > 0.5)) / X.shape[0]
         if acc > best_acc:
