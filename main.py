@@ -1,13 +1,17 @@
 from utils import get_args, set_random_seed
 from data import load_data
 from train import prepare_dataset, train
-from eval import eval
 from defend import Gaussian, Defense
 from module import Net
 import numpy as np
 
 args = get_args()
 set_random_seed(args.seed)
+
+if args.am == 'linear':
+    from eval_naive import eval
+else:
+    from eval import eval
 
 # last column of X is fabricated label
 train_X, test_X, train_Y, test_Y = load_data(args.data, args.path, args.seed)
@@ -67,5 +71,3 @@ if args.dm == 'gauss':
 elif args.dm == 'fake':
     fab = Defense(d1, binary_features)
     run_exp(d1, args.repeat, fab)
-        
-        
