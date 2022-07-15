@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import numpy as np
-from utils import accuracy
+from utils import accuracy, powerset
 from attack import equality_solve
 
 def eval(net, data, binary_features):
@@ -42,7 +42,18 @@ def eval(net, data, binary_features):
             acc /= X.shape[0]
             if acc > best_acc:
                 idx, best_acc = i, acc
-    for sol in ans:
+    for feats in powerset(bf):
+        if len(feats) < 2:
+            continue
+        feat_sum = np.sum(X[:, feats], axis=1)
+        for sol in ans:
+            acc = np.sum(np.isclose(feat_sum, sol))
+            if acc == X.shape[0]:
+                print('attack sum of features no.{} successfully.'.format(i))
+            acc /= X.shape[0]
+            if acc > best_acc:
+                idx, best_acc = feats, acc
+    '''for sol in ans:
         if np.sum(np.isclose(X[:, -1], sol)) == X.shape[0]:
-            print('attack fake feature successfully.'.format(i))
+            print('attack fake feature successfully.'.format(i))'''
     return train_acc, test_acc, best_acc, idx
