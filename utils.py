@@ -18,7 +18,8 @@ def get_args():
     # experiment settings
     parser.add_argument('--repeat', type=int, help='number of trials', default=10)
     parser.add_argument('--verbose', action='store_true', help='print train accuracy and loss')
-    # defense method
+    # attack and defense method
+    parser.add_argument('--am', type=str, help='attack method', choices=['linear', 'regression'], default='regression')
     parser.add_argument('--dm', type=str, help='defense method', choices=['gauss', 'fake'], default='gauss')
     parser.add_argument('--eps', type=float, help='eps in gaussian defense', default=0.0)
     # federated option
