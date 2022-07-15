@@ -53,3 +53,9 @@ def print_stat(name, a):
     # estimate standard deviation
     std = np.sqrt(sos / (a.shape[0] - 1))
     print('{} : mean = {}, std = {}'.format(name, avg, std))
+
+def powerset(s):
+    x = len(s)
+    masks = [1 << i for i in range(x)]
+    for i in range(1 << x):
+        yield [ss for mask, ss in zip(masks, s) if i & mask]
