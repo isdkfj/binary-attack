@@ -11,7 +11,7 @@ def eval(net, data, bf):
     test_acc = 0.0
     A = []
     X = []
-    net.set_mode('train')
+    net.defense.set_mode('train')
     # extract intermediate output
     def hook_forward_fn(module, input, output):
         A.append(output.numpy()[:, :net.d1])
