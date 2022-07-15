@@ -6,7 +6,7 @@ class Gaussian:
     def __init__(self, eps):
         self.eps = eps
         self.train_generator = torch.Generator()
-        self.eval_generator = torch.Generator()
+        self.val_generator = torch.Generator()
         self.generator = self.train_generator
 
     def defense(self, x1):
@@ -16,7 +16,7 @@ class Gaussian:
         if mode == 'train':
             self.generator = self.train_generator
         else:
-            self.generator = self.eval_generator
+            self.generator = self.val_generator
             
     def print_info(self, train_acc, test_acc, attack_acc):
         print('gaussian noise with eps = ', self.eps)
