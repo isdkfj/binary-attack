@@ -4,7 +4,7 @@ import numpy as np
 from utils import accuracy, powerset
 from attack import equality_solve
 
-def eval(net, data, binary_features):
+def eval(net, data, bf):
     train_dataset, train_loader, test_dataset, test_loader = data
     criterion = nn.CrossEntropyLoss()
     train_acc = 0.0
