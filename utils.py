@@ -51,7 +51,7 @@ def print_stat(name, a):
     # estimate mean
     avg = a.mean()
     sos = np.sum((a - avg) ** 2)
-    # estimate standard deviation
+    # estimate corrected standard deviation
     std = np.sqrt(sos / (a.shape[0] - 1))
     print('{} : mean = {}, std = {}, max = {}, min = {}'.format(name, avg, std, a.max(), a.min()))
 
