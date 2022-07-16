@@ -57,6 +57,6 @@ def eval(net, data, bf):
         if np.sum(np.isclose(X[:, -1], sol)) == X.shape[0]:
             print('attack fake feature successfully.'.format(i))'''
     for sol in ans:
-        w = np.linalg.solve(X, sol)
+        w = numpy.linalg.lstsq(X, sol)[0]
         print(w)
     return train_acc, test_acc, best_acc, idx
