@@ -50,7 +50,6 @@ def eval(net, data, bf):
             feat_sum = np.zeros(X.shape[0])
             for i in range(nf):
                 feat_sum += X[:, feats[i]] * (1 if (sign & (1 << i)) == 0 else -1)
-            feat_sum /= np.max(feat_sum)
             for sol in ans:
                 acc = np.sum(np.isclose(feat_sum, sol))
                 if acc == X.shape[0]:
