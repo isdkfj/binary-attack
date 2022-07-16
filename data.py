@@ -5,7 +5,7 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 
 def process_binary(X, train_X, test_X):
-    print('#instances: {}, #features: {}'.format(X.shape[0], X.shape[1]))
+    print('#instances: {}, #features: {}'.format(X.shape[0], X.shape[1] - 1))
     for i in range(X.shape[1]):
         s0 = np.sum(np.isclose(X[:, i], 0))
         s1 = np.sum(np.isclose(X[:, i], 1))
