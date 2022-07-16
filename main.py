@@ -34,7 +34,7 @@ elif args.data == 'mushroom':
 elif args.data == 'nursery':
     num_classes = 5
     d1 = 6
-    hid = [300, 200, 100]
+    hid = [300, 100]
 elif args.data == 'covertype':
     num_classes = 7
     d1 = 10
