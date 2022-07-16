@@ -4,21 +4,6 @@ import pandas as pd
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 
-def process_binary(X, train_X, test_X):
-    print('#instances: {}, #features: {}'.format(X.shape[0], X.shape[1] - 1))
-    for i in range(X.shape[1]):
-        s0 = np.sum(np.isclose(X[:, i], 0))
-        s1 = np.sum(np.isclose(X[:, i], 1))
-        if s0 + s1 == X.shape[0]:
-            if s0 > s1:
-                train_X[:, i] = 1 - train_X[:, i]
-                test_X[:, i] = 1 - test_X[:, i]
-                s0, s1 = s1, s0
-            print('feature no.{} is binary, {}% are 1\'s'.format(i, s1 / X.shape[0] * 100))
-        elif s0 < s1:
-            train_X[:, i] = 1 - train_X[:, i]
-            test_X[:, i] = 1 - test_X[:, i]
-
 def load_data(dname, path, SEED):
     if dname == 'bank':
         path = os.path.join(path, 'bank-marketing/bank-additional-full.csv')
@@ -99,6 +84,18 @@ def load_data(dname, path, SEED):
     X /= max_X
     train_X /= max_X
     test_X /= max_X
-    if dname != 'covertype':
-        process_binary(X, train_X, test_X)
+
+    print('#instances: {}, #features: {}'.format(X.shape[0], X.shape[1] - 1))
+    for i in range(X.shape[1]):
+        s0 = np.sum(np.isclose(X[:, i], 0))
+        s1 = np.sum(np.isclose(X[:, i], 1))
+        if s0 + s1 == X.shape[0]:
+            if s0 > s1 and dname != 'covertype':
+                train_X[:, i] = 1 - train_X[:, i]
+                test_X[:, i] = 1 - test_X[:, i]
+                s0, s1 = s1, s0
+            print('feature no.{} is binary, {}% are 1\'s'.format(i, s1 / X.shape[0] * 100))
+        elif s0 < s1:
+            train_X[:, i] = 1 - train_X[:, i]
+            test_X[:, i] = 1 - test_X[:, i]
     return train_X, test_X, train_Y, test_Y
