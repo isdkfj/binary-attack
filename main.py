@@ -27,7 +27,7 @@ elif args.data =='credit':
 elif args.data == 'mushroom':
     num_classes = 2
     d1 = 15
-    hid = [50, 20]
+    hid = [100, 40]
     # swap binary features out
     #train_X[:, [5, 6, 7, 9, 15, 16, 17, 18]] = train_X[:, [15, 16, 17, 18, 5, 6, 7, 9]]
     #test_X[:, [5, 6, 7, 9, 15, 16, 17, 18]] = test_X[:, [15, 16, 17, 18, 5, 6, 7, 9]]
