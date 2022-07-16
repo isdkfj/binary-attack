@@ -54,9 +54,9 @@ def eval(net, data, bf):
                 acc = np.sum(np.isclose(feat_sum, sol))
                 if acc == X.shape[0]:
                     print('attack combination of features no.{} successfully.'.format(feats))
-            acc /= X.shape[0]
-            if acc > best_acc:
-                idx, best_acc = feats, acc
+                acc /= X.shape[0]
+                if acc > best_acc:
+                    idx, best_acc = feats, acc
     '''for sol in ans:
         if np.sum(np.isclose(X[:, -1], sol)) == X.shape[0]:
             print('attack fake feature successfully.'.format(i))'''
