@@ -51,7 +51,11 @@ def eval(net, data, bf):
             for i in range(nf):
                 feat_sum += X[:, feats[i]] * (1 if (sign & (1 << i)) == 0 else -1)
             feat_sum /= np.max(feat_sum)
-            acc = np.sum(np.isclose(feat_sum.reshape(-1, 1), rec > 0.5)) / X.shape[0]
+            for sol in ans:
+                acc = np.sum(np.isclose(feat_sum, sol))
+                if acc == X.shape[0]:
+                    print('attack combination of features no.{} successfully.'.format(feats))
+            acc /= X.shape[0]
             if acc > best_acc:
                 idx, best_acc = feats, acc
     '''for sol in ans:
