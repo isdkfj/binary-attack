@@ -43,14 +43,15 @@ def eval(net, data, bf):
             if acc > best_acc:
                 idx, best_acc = i, acc
     for feats in powerset(bf):
-        if len(feats) < 2:
+        nf = len(feats)
+        if nf < 2:
             continue
-        feat_sum = np.sum(X[:, feats], axis=1)
-        for sol in ans:
-            acc = np.sum(np.isclose(feat_sum, sol))
-            if acc == X.shape[0]:
-                print('attack sum of features no.{} successfully.'.format(feats))
-            acc /= X.shape[0]
+        for sign in range(1 << nf):
+            feat_sum = np.zeros(X.shape[0])
+            for i in range(nf):
+                feat_sum += X[:, feats[i]] * (1 if (sign & (1 << i)) == 0 else -1)
+            feat_sum /= np.max(feat_sum)
+            acc = np.sum(np.isclose(feat_sum.reshape(-1, 1), rec > 0.5)) / X.shape[0]
             if acc > best_acc:
                 idx, best_acc = feats, acc
     '''for sol in ans:
