@@ -49,6 +49,7 @@ def eval(net, data, bf):
         if len(feats) < 2:
             continue
         feat_sum = np.sum(X[:, feats], axis=1)
+        feat_sum /= np.max(feat_sum)
         acc = np.sum(np.isclose(feat_sum.reshape(-1, 1), rec > 0.5)) / X.shape[0]
         if acc > best_acc:
             idx, best_acc = feats, acc
