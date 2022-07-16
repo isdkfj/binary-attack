@@ -53,7 +53,7 @@ def print_stat(name, a):
     sos = np.sum((a - avg) ** 2)
     # estimate standard deviation
     std = np.sqrt(sos / (a.shape[0] - 1))
-    print('{} : mean = {}, std = {}'.format(name, avg, std))
+    print('{} : mean = {}, std = {}, max = {}, min = {}'.format(name, avg, std, a.max(), a.min()))
 
 def powerset(s):
     x = len(s)
