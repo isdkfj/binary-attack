@@ -99,5 +99,6 @@ def load_data(dname, path, SEED):
     X /= max_X
     train_X /= max_X
     test_X /= max_X
-    process_binary(X, train_X, test_X)
+    if dname != 'bank':
+        process_binary(X, train_X, test_X)
     return train_X, test_X, train_Y, test_Y
