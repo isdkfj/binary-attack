@@ -124,6 +124,6 @@ int main(int argc, char** argv) {
 	}
 	
 	double end_time = clock();
-	cout << (end_time - start_time) / 1000 << " seconds" << endl;
+	cout << "time: " << (end_time - start_time) << endl;
 	return 0;
 }
