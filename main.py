@@ -27,14 +27,14 @@ elif args.data =='credit':
 elif args.data == 'mushroom':
     num_classes = 2
     d1 = 15
-    hid = [200, 100, 50]
+    hid = [200, 100, 100]
     # swap binary features out
     #train_X[:, [5, 6, 7, 9, 15, 16, 17, 18]] = train_X[:, [15, 16, 17, 18, 5, 6, 7, 9]]
     #test_X[:, [5, 6, 7, 9, 15, 16, 17, 18]] = test_X[:, [15, 16, 17, 18, 5, 6, 7, 9]]
 elif args.data == 'nursery':
     num_classes = 5
     d1 = 6
-    hid = [400, 200]
+    hid = [300, 200]
 elif args.data == 'covertype':
     num_classes = 7
     d1 = 10
