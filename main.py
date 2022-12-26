@@ -10,6 +10,8 @@ set_random_seed(args.seed)
 
 if args.am == 'linear':
     from eval_naive import eval
+elif args.am == 'regression':
+    from eval_no_atk import eval
 else:
     from eval import eval
 
