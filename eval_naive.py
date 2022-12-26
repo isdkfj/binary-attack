@@ -13,7 +13,7 @@ def eval(net, data, bf):
     X = []
     # extract intermediate output
     def hook_forward_fn(module, input, output):
-        A.append(output.numpy()[:, :net.d1])
+        A.append(output.numpy()[:, :net.d1 - net.defense.nd + net.defense.nf])
     net.inter.register_forward_hook(hook_forward_fn)
     with torch.no_grad():
         for i, (data, target) in enumerate(train_loader):
