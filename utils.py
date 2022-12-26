@@ -22,7 +22,7 @@ def get_args():
     parser.add_argument('--am', type=str, help='attack method', choices=['no', 'linear', 'regression'], default='no')
     parser.add_argument('--dm', type=str, help='defense method', choices=['gauss', 'fake'], default='gauss')
     parser.add_argument('--nf', type=int, help='number of fabricated features', default=1)
-    parser.add_argument('--df', type=int, help='reduced rank', default=1)
+    parser.add_argument('--nd', type=int, help='reduced rank', default=1)
     parser.add_argument('--eps', type=float, help='eps in gaussian defense', default=0.0)
     # federated option
     parser.add_argument('--nb', type=int, help='number of binary features', default=1)
