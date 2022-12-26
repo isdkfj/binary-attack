@@ -26,10 +26,11 @@ class Gaussian:
         print('')
 
 class Defense:
-    def __init__(self, d1, binary_features, nf):
+    def __init__(self, d1, binary_features, nf=1, nd=1):
         self.d1 = d1
         self.binary_features = binary_features
         self.nf = nf
+        self.nd = nd
 
     def set_mode(self, mode):
         pass
