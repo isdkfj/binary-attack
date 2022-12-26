@@ -71,5 +71,7 @@ if args.dm == 'gauss':
     gauss = Gaussian(args.eps)
     run_exp(d1, args.repeat, gauss)
 elif args.dm == 'fake':
+    print('number of fabricated features:', args.nf)
+    print('reduced rank', args.nd)
     fab = Defense(d1, binary_features, nf=args.nf, nd=args.nd)
     run_exp(d1, args.repeat, fab)
