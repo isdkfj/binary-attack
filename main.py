@@ -58,7 +58,7 @@ def run_exp(d1, num_exp, defense):
     list_test_acc = []
     list_attack_acc = []
     for iter_exp in range(num_exp):
-        net = Net(d1, train_X.shape[1] - d1 - 1, num_classes, hid, defense)
+        net = Net(d1, train_X.shape[1] - d1 - args.nf, num_classes, hid, defense)
         train(net, (train_dataset, train_loader, validation_dataset, validation_loader), verbose=args.verbose)
         train_acc, test_acc, attack_acc, idx = eval(net, (validation_dataset, validation_loader, test_dataset, test_loader), binary_features)
         list_train_acc.append(train_acc)
@@ -71,5 +71,5 @@ if args.dm == 'gauss':
     gauss = Gaussian(args.eps)
     run_exp(d1, args.repeat, gauss)
 elif args.dm == 'fake':
-    fab = Defense(d1, binary_features, args.nf)
+    fab = Defense(d1, binary_features, nf=args.nf, nd=args.nd)
     run_exp(d1, args.repeat, fab)
