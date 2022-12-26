@@ -41,7 +41,7 @@ def eval(net, data, bf):
     rec = np.dot(A, sol.reshape(A.shape[1], 1))
     idx_fake, acc_fake = 0, 0
     for i in range(net.defense.nf):
-        acc = np.sum(np.isclose(X[:, -1].reshape(-1, 1), rec > 0.5)) / X.shape[0]
+        acc = np.sum(np.isclose(X[:, net.d1 + net.d2 + i].reshape(-1, 1), rec > 0.5)) / X.shape[0]
         if acc > acc_fake:
             acc_fake = acc
             idx_fake = i
