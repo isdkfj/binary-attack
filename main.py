@@ -11,9 +11,9 @@ set_random_seed(args.seed)
 if args.am == 'linear':
     from eval_naive import eval
 elif args.am == 'regression':
-    from eval_no_atk import eval
-else:
     from eval import eval
+else:
+    from eval_no_atk import eval
 
 # last column of X is fabricated label
 train_X, test_X, train_Y, test_Y = load_data(args.data, args.path, args.seed)
