@@ -15,8 +15,8 @@ elif args.am == 'regression':
 else:
     from eval_no_atk import eval
 
-# last column of X is fabricated label
-train_X, test_X, train_Y, test_Y = load_data(args.data, args.path, args.seed)
+# last columns of X are fabricated features
+train_X, test_X, train_Y, test_Y = load_data(args.data, args.path, args.seed, nf=args.nf)
 
 if args.data == 'bank':
     num_classes = 2
@@ -71,5 +71,5 @@ if args.dm == 'gauss':
     gauss = Gaussian(args.eps)
     run_exp(d1, args.repeat, gauss)
 elif args.dm == 'fake':
-    fab = Defense(d1, binary_features)
+    fab = Defense(d1, binary_features, args.nf)
     run_exp(d1, args.repeat, fab)
