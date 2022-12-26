@@ -4,7 +4,7 @@ import pandas as pd
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 
-def load_data(dname, path, SEED):
+def load_data(dname, path, SEED, nf=1):
     if dname == 'bank':
         path = os.path.join(path, 'bank-marketing/bank-additional-full.csv')
         df = pd.read_csv(path, delimiter=';')
@@ -14,9 +14,9 @@ def load_data(dname, path, SEED):
                 df[attr] = encoder.transform(df[attr])
         X = df.values[:, :-1]
         Y = df.values[:, -1].astype('int')
-        fake_label = np.random.randint(0, 2, (X.shape[0], 1))
+        '''fake_label = np.random.randint(0, 2, (X.shape[0], 1))
         X = np.concatenate([X, fake_label], axis=1)
-        train_X, test_X, train_Y, test_Y = train_test_split(X, Y, test_size=0.1, random_state=SEED)
+        train_X, test_X, train_Y, test_Y = train_test_split(X, Y, test_size=0.1, random_state=SEED)'''
     elif dname == 'credit':
         path = os.path.join(path, 'default-of-credit-card-clients-dataset/UCI_Credit_Card.csv')
         df = pd.read_csv(path, delimiter=',')
@@ -28,9 +28,9 @@ def load_data(dname, path, SEED):
         X = df.values[:, :-1]
         Y = df.values[:, -1].astype('int')
         X[:, 1] -= 1
-        fake_label = np.random.randint(0, 2, (X.shape[0], 1))
+        '''fake_label = np.random.randint(0, 2, (X.shape[0], 1))
         X = np.concatenate([X, fake_label], axis=1)
-        train_X, test_X, train_Y, test_Y = train_test_split(X, Y, test_size=0.1, random_state=SEED)
+        train_X, test_X, train_Y, test_Y = train_test_split(X, Y, test_size=0.1, random_state=SEED)'''
     elif dname == 'mushroom':
         path = os.path.join(path, 'mushroom-classification/mushrooms.csv')
         df = pd.read_csv(path)
@@ -41,9 +41,9 @@ def load_data(dname, path, SEED):
                 df[attr] = encoder.transform(df[attr])
         X = df.values[:, 1:].astype('float')
         Y = df.values[:, 0].astype('int')
-        fake_label = np.random.randint(0, 2, (X.shape[0], 1))
+        '''fake_label = np.random.randint(0, 2, (X.shape[0], 1))
         X = np.concatenate([X, fake_label], axis=1)
-        train_X, test_X, train_Y, test_Y = train_test_split(X, Y, test_size=0.1, random_state=SEED)
+        train_X, test_X, train_Y, test_Y = train_test_split(X, Y, test_size=0.1, random_state=SEED)'''
     elif dname == 'nursery':
         path = os.path.join(path, 'nursery/nursery.csv')
         df = pd.read_csv(path)
@@ -61,9 +61,9 @@ def load_data(dname, path, SEED):
                 df[attr] = encoder.transform(df[attr])
         X = df.values[:, :-1].astype('float')
         Y = df.values[:, -1].astype('int')
-        fake_label = np.random.randint(0, 2, (X.shape[0], 1))
+        '''fake_label = np.random.randint(0, 2, (X.shape[0], 1))
         X = np.concatenate([X, fake_label], axis=1)
-        train_X, test_X, train_Y, test_Y = train_test_split(X, Y, test_size=0.1, random_state=SEED)
+        train_X, test_X, train_Y, test_Y = train_test_split(X, Y, test_size=0.1, random_state=SEED)'''
     elif dname == 'covertype':
         path = os.path.join(path, 'forest-cover-type-dataset/covtype.csv')
         df = pd.read_csv(path)
@@ -73,9 +73,12 @@ def load_data(dname, path, SEED):
                 df[attr] = encoder.transform(df[attr])
         X = df.values[:, :-1].astype('float')
         Y = df.values[:, -1].astype('int') - 1
-        fake_label = np.random.randint(0, 2, (X.shape[0], 1))
+        '''fake_label = np.random.randint(0, 2, (X.shape[0], 1))
         X = np.concatenate([X, fake_label], axis=1)
-        train_X, test_X, train_Y, test_Y = train_test_split(X, Y, test_size=0.1, random_state=SEED)
+        train_X, test_X, train_Y, test_Y = train_test_split(X, Y, test_size=0.1, random_state=SEED)'''
+    fake_label = np.random.randint(0, 2, (X.shape[0], nf))
+    X = np.concatenate([X, fake_label], axis=1)
+    train_X, test_X, train_Y, test_Y = train_test_split(X, Y, test_size=0.1, random_state=SEED)
     min_X = np.min(train_X, axis=0)
     X -= min_X
     train_X -= min_X
