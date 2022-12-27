@@ -48,7 +48,7 @@ elif args.data == 'covid':
     d1 = 12
     hid = [200, 100]
 elif args.data == 'monkey':
-    numclasses = 2
+    num_classes = 2
     d1 = 8
     hid = [100, 50, 20]
 
