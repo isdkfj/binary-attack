@@ -94,6 +94,7 @@ def load_data(dname, path, SEED, nf=1):
     train_X -= min_X
     test_X -= min_X
     max_X = np.max(train_X, axis=0)
+    max_X[max_X == 0] = 1
     X /= max_X
     train_X /= max_X
     test_X /= max_X
