@@ -89,7 +89,7 @@ def load_data(dname, path, SEED, nf=1):
         path = os.path.join(path, 'monkeypox-patients-dataset/DATA.csv')
         df = pd.read_csv(path)
         print(df.head())
-        df = df.drop('Patient_ID')
+        df = df.drop(columns=['Patient_ID'])
         for attr in df.columns:
             if df[attr].dtype == 'object':
                 encoder= LabelEncoder().fit(df[attr])
