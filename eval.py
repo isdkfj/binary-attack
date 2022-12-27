@@ -43,13 +43,14 @@ def eval(net, data, bf):
         print('error of feature no.{}:'.format(bid), np.sum((X[:, bid].reshape(-1, 1) - np.dot(A, real_x.reshape(A.shape[1], 1))) ** 2))
     print('error of solution:', val)
     rec = np.dot(A, sol.reshape(A.shape[1], 1))
-    idx_fake, acc_fake = 0, 0
-    for i in range(net.defense.nf):
-        acc = np.sum(np.isclose(X[:, net.d1 + net.d2 + i].reshape(-1, 1), rec > 0.5)) / X.shape[0]
-        if acc > acc_fake:
-            acc_fake = acc
-            idx_fake = i
-    print('attack acc w.r.t. fake label no.{}:'.format(idx_fake), acc_fake)
+    if isinstance(net.defense, Defense):
+        idx_fake, acc_fake = 0, 0
+        for i in range(net.defense.nf):
+            acc = np.sum(np.isclose(X[:, net.d1 + net.d2 + i].reshape(-1, 1), rec > 0.5)) / X.shape[0]
+            if acc > acc_fake:
+                acc_fake = acc
+                idx_fake = i
+        print('attack acc w.r.t. fake label no.{}:'.format(idx_fake), acc_fake)
     idx, best_acc = 0, 0
     for i in range(net.d1):
         acc = np.sum(np.isclose(X[:, i].reshape(-1, 1), rec > 0.5)) / X.shape[0]
