@@ -45,7 +45,7 @@ elif args.data == 'covertype':
     test_X[:, [6, 7, 8, 9, 10, 11, 12, 13]] = test_X[:, [10, 11, 12, 13, 6, 7, 8, 9]]
 elif args.data == 'covid':
     num_classes = 2
-    d1 = 18
+    d1 = 12
     hid = [200, 100]
 
 binary_features = []
