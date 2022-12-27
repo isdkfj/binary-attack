@@ -3,6 +3,7 @@ import torch.nn as nn
 import numpy as np
 from utils import accuracy, powerset
 from attack import equality_solve
+from defend import Defense
 
 def eval(net, data, bf):
     train_dataset, train_loader, test_dataset, test_loader = data
@@ -11,9 +12,12 @@ def eval(net, data, bf):
     test_acc = 0.0
     A = []
     X = []
+    D1 = net.d1
+    if isinstance(net.defense, Defense):
+        D1 = D1 - net.defense.nd + net.defense.nf
     # extract intermediate output
     def hook_forward_fn(module, input, output):
-        A.append(output.numpy()[:, :net.d1 - net.defense.nd + net.defense.nf])
+        A.append(output.numpy()[:, :D1])
     net.inter.register_forward_hook(hook_forward_fn)
     with torch.no_grad():
         for i, (data, target) in enumerate(train_loader):
