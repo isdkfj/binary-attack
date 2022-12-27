@@ -13,7 +13,7 @@ def eval(net, data, bf):
     A = []
     X = []
     D1 = net.d1
-    if isinstance(defense, Defense):
+    if isinstance(net.defense, Defense):
         D1 = D1 - net.defense.nd + net.defense.nf
     net.defense.set_mode('train')
     # extract intermediate output
