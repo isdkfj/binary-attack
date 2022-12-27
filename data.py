@@ -85,6 +85,16 @@ def load_data(dname, path, SEED, nf=1):
                 df[attr] = encoder.transform(df[attr])
         X = df.values[:, :-1].astype('float')
         Y = df.values[:, -1].astype('int')
+    elif dname == 'monkey':
+        path = os.path.join(path, 'monkeypox-patients-dataset/DATA.csv')
+        df = pd.read_csv(path)
+        df = df.drop('Patient_ID')
+        for attr in df.columns:
+            if df[attr].dtype == 'object':
+                encoder= LabelEncoder().fit(df[attr])
+                df[attr] = encoder.transform(df[attr])
+        X = df.values[:, :-1].astype('float')
+        Y = df.values[:, -1].astype('int')
     fake_label = np.random.randint(0, 2, (X.shape[0], nf))
     X = np.concatenate([X, fake_label], axis=1)
     train_X, test_X, train_Y, test_Y = train_test_split(X, Y, test_size=0.1, random_state=SEED)
