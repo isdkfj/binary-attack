@@ -3,6 +3,7 @@ import torch.nn as nn
 import numpy as np
 from utils import accuracy, powerset
 from attack import leverage_score_solve
+from defend import Defense
 
 def eval(net, data, bf):
     train_dataset, train_loader, test_dataset, test_loader = data
@@ -11,10 +12,13 @@ def eval(net, data, bf):
     test_acc = 0.0
     A = []
     X = []
+    D1 = net.d1
+    if isinstance(defense, Defense):
+        D1 = D1 - net.defense.nd + net.defense.nf
     net.defense.set_mode('train')
     # extract intermediate output
     def hook_forward_fn(module, input, output):
-        A.append(output.numpy()[:, :net.d1 - net.defense.nd + net.defense.nf])
+        A.append(output.numpy()[:, :D1])
     net.inter.register_forward_hook(hook_forward_fn)
     with torch.no_grad():
         for i, (data, target) in enumerate(train_loader):
@@ -32,7 +36,7 @@ def eval(net, data, bf):
         test_acc /= len(test_dataset)
     A = np.concatenate(A, axis=0)
     X = np.concatenate(X, axis=0)
-    sol, val = leverage_score_solve(A, 20, net.d1 - net.defense.nd + net.defense.nf + 1)
+    sol, val = leverage_score_solve(A, 20, D1 + 1)
     cov = np.dot(A.T, A)
     for bid in bf:
         real_x = np.linalg.solve(cov, np.dot(A.T, X[:, bid].reshape(-1, 1)))
