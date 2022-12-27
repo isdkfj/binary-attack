@@ -76,6 +76,16 @@ def load_data(dname, path, SEED, nf=1):
         '''fake_label = np.random.randint(0, 2, (X.shape[0], 1))
         X = np.concatenate([X, fake_label], axis=1)
         train_X, test_X, train_Y, test_Y = train_test_split(X, Y, test_size=0.1, random_state=SEED)'''
+    elif dname == 'covid':
+        path = os.path.join(path, 'symptoms-and-covid-presence/Covid Dataset.csv')
+        df = pd.read_csv(path)
+        for attr in df.columns:
+            if df[attr].dtype == 'object':
+                encoder = LabelEncoder().fit(df[attr])
+                df[attr] = encoder.transform(df[attr])
+        print(df.head())
+        X = df.values[:, :-1].astype('float')
+        Y = df.values[:, -1].astype('int')
     fake_label = np.random.randint(0, 2, (X.shape[0], nf))
     X = np.concatenate([X, fake_label], axis=1)
     train_X, test_X, train_Y, test_Y = train_test_split(X, Y, test_size=0.1, random_state=SEED)
