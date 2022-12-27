@@ -9,7 +9,7 @@ def get_args():
     # dataset
     parser.add_argument('--path', type=str, help='dataset directory', default='./data')
     parser.add_argument('--data', type=str, help='dataset',
-                        choices=['bank', 'credit', 'mushroom', 'nursery', 'covertype'],
+                        choices=['bank', 'credit', 'mushroom', 'nursery', 'covertype', 'covid'],
                         default='bank')
     # neural network hyper-parameters
     parser.add_argument('--net', type=int, nargs='*', help='number of neurons in each hidden layer', default=[600, 300, 100])
