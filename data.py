@@ -94,6 +94,7 @@ def load_data(dname, path, SEED, nf=1):
                 encoder= LabelEncoder().fit(df[attr])
                 df[attr] = encoder.transform(df[attr])
         X = df.values[:, :-1].astype('float')
+        X[:, [0, 8]] = X[:, [8, 0]]
         Y = df.values[:, -1].astype('int')
     fake_label = np.random.randint(0, 2, (X.shape[0], nf))
     X = np.concatenate([X, fake_label], axis=1)
