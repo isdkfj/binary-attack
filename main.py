@@ -43,6 +43,10 @@ elif args.data == 'covertype':
     hid = [200, 200, 200]
     train_X[:, [6, 7, 8, 9, 10, 11, 12, 13]] = train_X[:, [10, 11, 12, 13, 6, 7, 8, 9]]
     test_X[:, [6, 7, 8, 9, 10, 11, 12, 13]] = test_X[:, [10, 11, 12, 13, 6, 7, 8, 9]]
+elif args.data == 'covid':
+    num_classes = 2
+    d1 = 18
+    hid = [200, 100]
 
 binary_features = []
 for i in range (d1):
