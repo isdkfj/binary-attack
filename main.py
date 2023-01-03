@@ -24,7 +24,7 @@ if args.data == 'bank':
     hid = [60, 30, 10]
 elif args.data =='credit':
     num_classes = 2
-    d1 = 8
+    d1 = 2
     hid = [100, 50, 20]
 elif args.data == 'mushroom':
     num_classes = 2
