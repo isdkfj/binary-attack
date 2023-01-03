@@ -34,7 +34,6 @@ elif args.data == 'nursery':
     num_classes = 5
     d1 = 6
     hid = [200, 100]
-    train_X[:, [4, 7]] = train_X[:, [7, 4]]
 elif args.data == 'covertype':
     num_classes = 7
     d1 = 10
