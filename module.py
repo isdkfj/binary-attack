@@ -30,7 +30,9 @@ class Net(nn.Module):
             x1 = self.input1(torch.cat((x1, x[:, self.d1 + self.d2: self.d1 + self.d2 + self.defense.nf].reshape(-1, self.defense.nf)), axis=1))
         else:
             x1 = self.input1(x[:, :self.d1])
-            x1 += self.defense.noise(x1.detach())
+            tmp = self.defense.noise(x1.detach())
+            print(torch.mean(x1 ** 2), torch.mean(tmp ** 2))
+            x1 += tmp
         x1 = self.inter(x1)
         x2 = self.input2(x[:, self.d1: self.d1 + self.d2])
         x = x1 + x2
