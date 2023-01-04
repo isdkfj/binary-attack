@@ -114,10 +114,10 @@ def load_data(dname, path, SEED, nf=1):
         s0 = np.sum(np.isclose(X[:, i], 0))
         s1 = np.sum(np.isclose(X[:, i], 1))
         if s0 + s1 == X.shape[0]:
-            if s0 > s1 and dname != 'covertype':
+            '''if s0 > s1 and dname != 'covertype':
                 train_X[:, i] = 1 - train_X[:, i]
                 test_X[:, i] = 1 - test_X[:, i]
-                s0, s1 = s1, s0
+                s0, s1 = s1, s0'''
             print('feature no.{} is binary, {}% are 1\'s'.format(i, s1 / X.shape[0] * 100))
         elif s0 < s1:
             train_X[:, i] = 1 - train_X[:, i]
