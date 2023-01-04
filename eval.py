@@ -60,7 +60,7 @@ def eval(net, data, bf):
         nf = len(feats)
         if nf < 2:
             continue
-        for sign in range(1 << nf):
+        for sign in range(1):
             feat_sum = np.zeros(X.shape[0])
             for i in range(nf):
                 feat_sum += X[:, feats[i]] * (1 if (sign & (1 << i)) == 0 else -1)
