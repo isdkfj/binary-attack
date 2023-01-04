@@ -56,7 +56,7 @@ def eval(net, data, bf):
         acc = np.sum(np.isclose(X[:, i].reshape(-1, 1), rec > 0.5)) / X.shape[0]
         if acc > best_acc:
             idx, best_acc = i, acc
-    '''for feats in powerset(bf):
+    for feats in powerset(bf):
         nf = len(feats)
         if nf < 2:
             continue
@@ -66,5 +66,5 @@ def eval(net, data, bf):
                 feat_sum += X[:, feats[i]] * (1 if (sign & (1 << i)) == 0 else -1)
             acc = np.sum(np.isclose(feat_sum.reshape(-1, 1), rec > 0.5)) / X.shape[0]
             if acc > best_acc:
-                idx, best_acc = feats, acc'''
+                idx, best_acc = feats, acc
     return train_acc, test_acc, best_acc, idx
