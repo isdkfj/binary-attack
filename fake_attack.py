@@ -16,10 +16,6 @@ else:
     from eval_no_atk import eval
 
 def run_exp(num_exp):
-    print('number of fabricated features:', args.nf)
-    print('reduced rank', args.nd)
-    defense = Defense(d1, binary_features, nf=args.nf, nd=args.nd)
-
     list_train_acc = []
     list_test_acc = []
     list_attack_acc = []
@@ -65,6 +61,10 @@ def run_exp(num_exp):
                 binary_features.append(i)
 
         print('binary features:', binary_features)
+
+        print('number of fabricated features:', args.nf)
+        print('reduced rank', args.nd)
+        defense = Defense(d1, binary_features, nf=args.nf, nd=args.nd)
 
         train_dataset, train_loader, validation_dataset, validation_loader, test_dataset, test_loader = prepare_dataset(train_X, train_Y, test_X, test_Y, args.bs)
         net = Net(d1, train_X.shape[1] - d1 - args.nf, num_classes, hid, defense)
