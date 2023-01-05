@@ -15,10 +15,15 @@ elif args.am == 'regression':
 else:
     from eval_no_atk import eval
 
-def run_exp(d1, num_exp, defense):
+def run_exp(num_exp):
+    print('number of fabricated features:', args.nf)
+    print('reduced rank', args.nd)
+    defense = Defense(d1, binary_features, nf=args.nf, nd=args.nd)
+
     list_train_acc = []
     list_test_acc = []
     list_attack_acc = []
+
     for iter_exp in range(num_exp):
         # last columns of X are fabricated features
         train_X, test_X, train_Y, test_Y = load_data(args.data, args.path, args.seed, nf=args.nf)
@@ -71,11 +76,4 @@ def run_exp(d1, num_exp, defense):
         print(train_acc, test_acc, attack_acc, idx)
     defense.print_info(list_train_acc, list_test_acc, list_attack_acc)
 
-if args.dm == 'gauss':
-    gauss = Gaussian(args.eps)
-    run_exp(d1, args.repeat, gauss)
-elif args.dm == 'fake':
-    print('number of fabricated features:', args.nf)
-    print('reduced rank', args.nd)
-    fab = Defense(d1, binary_features, nf=args.nf, nd=args.nd)
-    run_exp(d1, args.repeat, fab)
+run_exp(args.repeat)
