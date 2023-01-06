@@ -32,7 +32,7 @@ def train(net, data, verbose=False):
     optimizer = torch.optim.SGD(net.parameters(), lr=0.1, momentum=0.9, weight_decay=1e-4)
     scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones=[30, 60, 90])
 
-    num_epoch = 1
+    num_epoch = 100
     
     Iterator = range(1, num_epoch + 1) if verbose else tqdm(range(1, num_epoch + 1))
 
