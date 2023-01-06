@@ -74,6 +74,9 @@ def run_exp(num_exp):
         list_test_acc.append(test_acc)
         list_attack_acc.append(attack_acc)
         print(train_acc, test_acc, attack_acc, idx)
+        weight_dist = np.mean(net.input1.weight.data.numpy(), axis=0)
+        print('weight distribution: ', weight_dist)
+        print('true: {}, fake: {}'.format(np.mean(weight_dist[: d1 - args.nd]), np.mean(weight_dist[d1 - args.nd :])))
     defense.print_info(list_train_acc, list_test_acc, list_attack_acc)
 
 run_exp(args.repeat)
