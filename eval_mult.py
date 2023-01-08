@@ -44,7 +44,8 @@ def eval(net, data, bf):
         values = []
         for i in range(len(ans)):
             values.append((bits >> i) & 1)
-        indices = np.ones(X.shape[0])
+        indices = np.ones(X.shape[0]).astype('bool')
+        print(len(indices))
         for i in range(len(ans)):
             indices = indices * (ans[i] == values[i])
         partial_A = A[indices, :]
