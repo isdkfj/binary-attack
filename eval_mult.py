@@ -67,4 +67,4 @@ def eval(net, data, bf):
         for i in range(len(ind)):
             if ((sign >> i) & 1) == 1:
                 sol[ind[i]] = 1 - sol[ind[i]]
-    return train_acc, test_acc, best_acc, 
+    return train_acc, test_acc, best_acc, idx
