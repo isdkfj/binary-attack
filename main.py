@@ -12,6 +12,8 @@ if args.am == 'linear':
     from eval_naive import eval
 elif args.am == 'regression':
     from eval import eval
+elif args.am == 'ada':
+    from eval_mult import eval
 else:
     from eval_no_atk import eval
 
