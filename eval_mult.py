@@ -14,8 +14,7 @@ def eval(net, data, bf):
     X = []
     D1 = net.d1
     if isinstance(net.defense, Defense):
-        #D1 = D1 - net.defense.nd + net.defense.nf
-        D1 = D1 - net.defense.nd
+        D1 = D1 - net.defense.nd + net.defense.nf
     # extract intermediate output
     def hook_forward_fn(module, input, output):
         A.append(output.numpy()[:, :D1])
@@ -50,7 +49,7 @@ def eval(net, data, bf):
             indices = indices * (ans[i] == values[i])
         partial_A = A[indices, :]
         partial_A = partial_A - partial_A[0, :]
-        partial_sol, partial_val = leverage_score_solve(partial_A, 20, D1 + 1)
+        partial_sol, partial_val = leverage_score_solve(partial_A, 20, D1 - net.defense.nf + 1)
         rec = np.dot(partial_A, partial_sol.reshape(partial_A.shape[1], 1))
         sol[indices] = (rec > 0.5).reshape(-1)
         ind.append(indices)
