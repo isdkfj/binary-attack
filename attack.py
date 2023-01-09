@@ -39,7 +39,6 @@ def global_minl2(A, x):
         try:
             y = np.linalg.solve(cov, np.dot(A.T, b))
         except:
-            print(cov.shape, A.shape, b.shape)
             y = np.dot(np.linalg.pinv(cov), np.dot(A.T, b))
         b = np.dot(A, y)
         l2 = np.sum(np.minimum(b ** 2, (b - 1.) ** 2))
