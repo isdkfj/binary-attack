@@ -36,7 +36,11 @@ def global_minl2(A, x):
         if b.mean() < 0.4:
             continue
         b = b.astype(np.float32)
-        y = np.linalg.solve(cov, np.dot(A.T, b))
+        try:
+            y = np.linalg.solve(cov, np.dot(A.T, b))
+        except:
+            print(cov.shape, A.shape, b.shape)
+            y = np.dot(np.linalg.pinv(cov), np.dot(A.T, b))
         b = np.dot(A, y)
         l2 = np.sum(np.minimum(b ** 2, (b - 1.) ** 2))
         if val is None or l2 < val:
