@@ -81,7 +81,7 @@ def run_exp(d1, num_exp, defense):
     defense.print_info(list_train_acc, list_test_acc, list_attack_acc)
     if args.time:
         print('train time:', list_time)
-        print('train time mean:', mean(list_time))
+        print('train time mean:', np.mean(list_time))
 
 if args.dm == 'gauss':
     gauss = Gaussian(args.eps)
