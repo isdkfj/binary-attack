@@ -4,6 +4,7 @@ from train import prepare_dataset, train
 from defend import Gaussian, Defense
 from module import Net
 import numpy as np
+import time
 
 args = get_args()
 set_random_seed(args.seed)
@@ -66,7 +67,11 @@ def run_exp(d1, num_exp, defense):
     list_attack_acc = []
     for iter_exp in range(num_exp):
         net = Net(d1, train_X.shape[1] - d1 - args.nf, num_classes, hid, defense)
+        if args.time:
+            start_time = time.time()
         train(net, (train_dataset, train_loader, validation_dataset, validation_loader), verbose=args.verbose)
+        if args.time:
+            print('train time:', time.time() - start_time)
         train_acc, test_acc, attack_acc, idx = eval(net, (validation_dataset, validation_loader, test_dataset, test_loader), binary_features)
         list_train_acc.append(train_acc)
         list_test_acc.append(test_acc)
