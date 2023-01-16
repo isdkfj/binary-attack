@@ -33,7 +33,8 @@ class Net(nn.Module):
                 x1 = self.input1(x1)
         else:
             x1 = self.input1(x[:, :self.d1])
-            x1 += self.defense.noise(x1.detach())
+            if self.defense.eps > 1e-6:
+                x1 += self.defense.noise(x1.detach())
         x1 = self.inter(x1)
         x2 = self.input2(x[:, self.d1: self.d1 + self.d2])
         x = x1 + x2
