@@ -65,19 +65,23 @@ def run_exp(d1, num_exp, defense):
     list_train_acc = []
     list_test_acc = []
     list_attack_acc = []
+    list_time = []
     for iter_exp in range(num_exp):
         net = Net(d1, train_X.shape[1] - d1 - args.nf, num_classes, hid, defense)
         if args.time:
             start_time = time.time()
         train(net, (train_dataset, train_loader, validation_dataset, validation_loader), verbose=args.verbose)
         if args.time:
-            print('train time:', time.time() - start_time)
+            list_time.append(time.time() - start_time)
         train_acc, test_acc, attack_acc, idx = eval(net, (validation_dataset, validation_loader, test_dataset, test_loader), binary_features)
         list_train_acc.append(train_acc)
         list_test_acc.append(test_acc)
         list_attack_acc.append(attack_acc)
         print(train_acc, test_acc, attack_acc, idx)
     defense.print_info(list_train_acc, list_test_acc, list_attack_acc)
+    if args.time:
+        print('train time:', list_time)
+        print('train time mean:', mean(list_time))
 
 if args.dm == 'gauss':
     gauss = Gaussian(args.eps)
