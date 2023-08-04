@@ -26,13 +26,13 @@ def prepare_dataset(train_X, train_Y, test_X, test_Y, batch_size):
     test_loader = DataLoader(test_dataset, batch_size=batch_size, num_workers=0, generator=torch.Generator())
     return train_dataset, train_loader, validation_dataset, validation_loader, test_dataset, test_loader
 
-def train(net, data, verbose=False):
+def train(net, data, verbose=False, total_epoch=100):
     train_dataset, train_loader, validation_dataset, validation_loader = data
     criterion = nn.CrossEntropyLoss()
     optimizer = torch.optim.SGD(net.parameters(), lr=0.1, momentum=0.9, weight_decay=1e-4)
     scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones=[30, 60, 90])
 
-    num_epoch = 100
+    num_epoch = total_epoch
     
     Iterator = range(1, num_epoch + 1) if verbose else tqdm(range(1, num_epoch + 1))
 
