@@ -15,6 +15,7 @@ def get_args():
     parser.add_argument('--net', type=int, nargs='*', help='number of neurons in each hidden layer', default=[600, 300, 100])
     parser.add_argument('--bs', type=int, help='batch size', default=128)
     parser.add_argument('--seed', type=int, help='random seed', default=1)
+    parser.add_argument('--total', type=int, help='total epoches', default=100)
     # experiment settings
     parser.add_argument('--repeat', type=int, help='number of trials', default=10)
     parser.add_argument('--verbose', action='store_true', help='print train accuracy and loss')
